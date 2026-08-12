@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main # ya master jo bhi aapki github branch ho
+  branch: main
 
 media_folder: "images"
 public_folder: "images"
@@ -11,9 +11,13 @@ collections:
     folder: "content/products"
     create: true
     slug: "{{slug}}"
+    editor:
+      preview: true
     fields:
-      - {label: "Product Name", name: "title", widget: "string"}
-      - {label: "Price (Rs.)", name: "price", widget: "number"}
-      - {label: "Brand", name: "brand", widget: "string"}
-      - {label: "Specifications / Model", name: "specs", widget: "string"}
-      - {label: "Product Image", name: "image", widget: "image"}
+      - { label: "Product Title", name: "title", widget: "string" }
+      - { label: "Price (Rs.)", name: "price", widget: "number", value_type: "int" }
+      - { label: "Product Image", name: "image", widget: "image" }
+      - { label: "Brand / Category", name: "brand", widget: "select", options: ["Delta", "VFD Inverter", "Servo Motor", "PLC Controller", "Other"] }
+      - { label: "Short Specifications", name: "specs", widget: "string", required: false }
+      - { label: "Full Description", name: "description", widget: "text" }
+      - { label: "In Stock", name: "inStock", widget: "boolean", default: true }
