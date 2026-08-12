@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inverter.inv - Industrial Automation & Electronics</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0A2540',
+                        'navy-dark': '#071A2F',
+                        electric: '#2563EB',
+                        accent: '#F59E0B',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-navy text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight">
+                    inverter<span class="text-accent">.in</span>v
+                </a>
+
+                <div class="flex items-center gap-4 md:gap-6">
+                    <a href="cart.html" class="relative hover:text-accent transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <span class="cart-count absolute -top-2 -right-2 bg-accent text-navy text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO BANNER -->
+    <section class="bg-navy text-white py-12 md:py-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+                Industrial Automation <span class="text-accent">Solutions</span>
+            </h1>
+            <p class="text-slate-300 max-w-2xl mx-auto text-base md:text-lg mb-8">
+                High-quality PLCs, VFD Inverters, and Automation Controllers for your machinery and industrial applications.
+            </p>
+            <a href="#products" class="inline-block bg-accent hover:bg-amber-500 text-navy font-bold px-8 py-3.5 rounded-lg transition shadow-lg">
+                Explore Products
+            </a>
+        </div>
+    </section>
+
+    <!-- PRODUCTS GRID -->
+    <section id="products" class="max-w-7xl mx-auto px-4 sm:px-6 py-12 md:py-16">
+        <div class="flex justify-between items-center mb-8">
+            <div>
+                <h2 class="text-2xl md:text-3xl font-bold text-navy">Featured Products</h2>
+                <p class="text-slate-500 text-sm mt-1">Genuine industrial electronics at best prices</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+
+            <!-- PRODUCT CARD 1: Delta PLC -->
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+                <div class="aspect-square bg-slate-100 flex items-center justify-center p-6">
+                    <img src="images/plc1.jpg" alt="Delta PLC Controller" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=PLC+Image';">
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <span class="text-xs text-electric font-semibold uppercase tracking-wider mb-1">Delta</span>
+                    <h3 class="text-lg font-bold text-navy mb-2">
+                        <a href="product.html" class="hover:text-electric transition">DVP14SS2 PLC Controller</a>
+                    </h3>
+                    <p class="text-slate-500 text-sm mb-4 line-clamp-2">Compact & reliable PLC with 14 I/O points for automation applications.</p>
+                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100">
+                        <span class="text-xl font-bold text-navy">Rs. 18,500</span>
+                        <a href="product.html" class="bg-navy hover:bg-navy-dark text-white text-sm font-semibold py-2 px-4 rounded-lg transition">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT CARD 2: VFD Inverter -->
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+                <div class="aspect-square bg-slate-100 flex items-center justify-center p-6">
+                    <img src="images/plc1.jpg" alt="VFD Inverter Drive" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=VFD+Image';">
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <span class="text-xs text-electric font-semibold uppercase tracking-wider mb-1">Inverter</span>
+                    <h3 class="text-lg font-bold text-navy mb-2">
+                        <a href="#" class="hover:text-electric transition">VFD Variable Speed Drive</a>
+                    </h3>
+                    <p class="text-slate-500 text-sm mb-4 line-clamp-2">High performance motor speed control for industrial machinery.</p>
+                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100">
+                        <span class="text-xl font-bold text-navy">Rs. 24,000</span>
+                        <button onclick="addToCart({id:'vfd_1', name:'VFD Variable Speed Drive', price:24000, brand:'Inverter', specs:'3-Phase Control'})" class="bg-accent hover:bg-amber-500 text-navy text-sm font-semibold py-2 px-4 rounded-lg transition">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCT CARD 3: Servo Motor Drive -->
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
+                <div class="aspect-square bg-slate-100 flex items-center justify-center p-6">
+                    <img src="images/plc1.jpg" alt="Servo Drive Controller" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=Servo+Image';">
+                </div>
+                <div class="p-5 flex flex-col flex-grow">
+                    <span class="text-xs text-electric font-semibold uppercase tracking-wider mb-1">Servo</span>
+                    <h3 class="text-lg font-bold text-navy mb-2">
+                        <a href="#" class="hover:text-electric transition">AC Servo Motor & Drive</a>
+                    </h3>
+                    <p class="text-slate-500 text-sm mb-4 line-clamp-2">Precision motion control system for high accuracy industrial automation.</p>
+                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100">
+                        <span class="text-xl font-bold text-navy">Rs. 32,500</span>
+                        <button onclick="addToCart({id:'servo_1', name:'AC Servo Motor & Drive', price:32500, brand:'Servo', specs:'High Accuracy Drive'})" class="bg-accent hover:bg-amber-500 text-navy text-sm font-semibold py-2 px-4 rounded-lg transition">
+                            Add to Cart
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy-dark text-white pt-10 pb-8 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+            <p class="text-slate-400 text-sm">© 2026 inverter.in — All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

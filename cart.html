@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart - inverter.in</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        navy: '#0A2540',
+                        'navy-dark': '#071A2F',
+                        electric: '#2563EB',
+                        accent: '#F59E0B',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- HEADER -->
+    <header class="sticky top-0 z-50 bg-navy text-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
+            <div class="flex items-center justify-between h-16 md:h-20">
+                <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight">
+                    inverter<span class="text-accent">.in</span>v
+                </a>
+
+                <div class="flex items-center gap-4 md:gap-6">
+                    <a href="cart.html" class="relative hover:text-accent transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <span class="cart-count absolute -top-2 -right-2 bg-accent text-navy text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- PAGE TITLE -->
+    <div class="bg-white border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+            <h1 class="text-2xl md:text-3xl font-bold text-navy">Shopping Cart</h1>
+            <p class="text-slate-500 mt-1">Your selected products</p>
+        </div>
+    </div>
+
+    <!-- CART CONTENT -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+
+            <!-- LEFT: Cart Items -->
+            <div id="cart-items" class="lg:col-span-2 space-y-4">
+                <!-- JavaScript yahan products dikhayega -->
+            </div>
+
+            <!-- RIGHT: Order Summary -->
+            <div id="order-summary" class="lg:col-span-1">
+                <!-- JavaScript yahan summary dikhayega -->
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-navy-dark text-white pt-10 pb-8 mt-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
+            <p class="text-slate-400 text-sm">© 2026 inverter.in — All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+    <script>
+        // AAPKA WHATSAPP NUMBER (Pehle 92 likhein, phir bina 0 ke number)
+        const MY_WHATSAPP_NUMBER = "923001234567"; // <-- Yahan apna number set karein
+
+        document.addEventListener('DOMContentLoaded', renderCartPage);
+
+        function renderCartPage() {
+            const cartItemsContainer = document.getElementById('cart-items');
+            const orderSummaryContainer = document.getElementById('order-summary');
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+            // Agar Cart Khali Ho
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = `
+                    <div class="bg-white rounded-2xl border border-slate-200 p-8 text-center">
+                        <p class="text-slate-500 text-lg mb-4">Aapka cart filhal khali hai.</p>
+                        <a href="index.html" class="inline-block bg-electric hover:bg-blue-700 text-white font-medium px-6 py-2.5 rounded-lg transition">
+                            Shopping Jari Rakhein
+                        </a>
+                    </div>
+                `;
+                orderSummaryContainer.innerHTML = '';
+                return;
+            }
+
+            // Products List Render Karein
+            let itemsHtml = '';
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+
+                itemsHtml += `
+                    <div class="bg-white rounded-2xl border border-slate-200 p-5 flex flex-col sm:flex-row items-center justify-between gap-4 shadow-sm">
+                        <div class="flex-1">
+                            <span class="text-xs text-electric font-semibold uppercase tracking-wider">${item.brand || 'Product'}</span>
+                            <h3 class="text-lg font-bold text-navy">${item.name}</h3>
+                            <p class="text-sm text-slate-500">${item.specs || ''}</p>
+                            <p class="text-base font-semibold text-navy mt-1">Rs. ${item.price.toLocaleString()}</p>
+                        </div>
+                        <div class="flex items-center gap-6">
+                            <div class="flex items-center border border-slate-300 rounded-lg overflow-hidden bg-slate-50">
+                                <button onclick="changeQuantity(${index}, -1)" class="px-3 py-1 bg-slate-200 hover:bg-slate-300 text-navy font-bold">-</button>
+                                <span class="px-4 py-1 text-sm font-semibold text-navy">${item.quantity}</span>
+                                <button onclick="changeQuantity(${index}, 1)" class="px-3 py-1 bg-slate-200 hover:bg-slate-300 text-navy font-bold">+</button>
+                            </div>
+                            <span class="text-lg font-bold text-navy w-28 text-right">Rs. ${itemTotal.toLocaleString()}</span>
+                            <button onclick="removeCartItem(${index})" class="text-red-500 hover:text-red-700 p-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            cartItemsContainer.innerHTML = itemsHtml;
+
+            // Summary Card With Green WhatsApp Button
+            orderSummaryContainer.innerHTML = `
+                <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm sticky top-24">
+                    <h2 class="text-xl font-bold text-navy mb-4 border-b pb-3">Order Summary</h2>
+                    <div class="space-y-3 text-sm mb-6">
+                        <div class="flex justify-between text-slate-600">
+                            <span>Subtotal</span>
+                            <span class="font-semibold text-navy">Rs. ${subtotal.toLocaleString()}</span>
+                        </div>
+                        <div class="flex justify-between text-slate-600">
+                            <span>Delivery Fee</span>
+                            <span class="text-green-600 font-medium">Free</span>
+                        </div>
+                        <div class="border-t pt-3 flex justify-between text-base font-bold text-navy">
+                            <span>Total</span>
+                            <span class="text-xl text-navy">Rs. ${subtotal.toLocaleString()}</span>
+                        </div>
+                    </div>
+                    <button onclick="sendWhatsAppOrder()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-3.5 px-6 rounded-lg transition shadow-md flex items-center justify-center gap-2">
+                        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12.031 0c-6.627 0-12 5.373-12 12 0 2.159.57 4.26 1.657 6.105l-1.688 6.166 6.306-1.654c1.78.968 3.784 1.478 5.725 1.478 6.627 0 12-5.373 12-12s-5.373-12-12-12zm6.186 17.265c-.256.719-1.282 1.315-2.073 1.491-.541.12-1.247.215-3.626-.768-3.045-1.258-4.996-4.357-5.148-4.558-.152-.202-1.233-1.642-1.233-3.132 0-1.491.78-2.225 1.057-2.527.277-.302.605-.378.807-.378.201 0 .403.002.58.01.188.008.438-.071.688.529.256.615.867 2.115.943 2.266.076.151.126.327.025.529-.101.202-.151.327-.302.503-.151.176-.318.393-.453.528-.151.151-.308.316-.132.617.176.302.783 1.293 1.68 2.093 1.152 1.027 2.122 1.346 2.424 1.497.302.151.479.126.655-.076.176-.202.756-.88 0.957-1.182.201-.302.403-.252.68-.151.277.101 1.76.83 2.062.981.302.151.503.227.58.352.075.126.075.729-.181 1.448z"/></svg>
+                        Order via WhatsApp
+                    </button>
+                </div>
+            `;
+        }
+
+        // Quantity Change (+ / -)
+        function changeQuantity(index, delta) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart[index]) {
+                cart[index].quantity += delta;
+                if (cart[index].quantity <= 0) {
+                    cart.splice(index, 1);
+                }
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCartPage();
+                if (typeof updateCartCount === 'function') updateCartCount();
+            }
+        }
+
+        // Item Remove
+        function removeCartItem(index) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCartPage();
+            if (typeof updateCartCount === 'function') updateCartCount();
+        }
+
+        // WHATSAPP REDIRECT FUNCTION
+        function sendWhatsAppOrder() {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) return;
+
+            let message = "*New Order from inverter.inv*\n\n";
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                message += `${index + 1}. *${item.name}*\n`;
+                message += `   - Variant: ${item.specs || 'N/A'}\n`;
+                message += `   - Price: Rs. ${item.price.toLocaleString()} x ${item.quantity} = Rs. ${itemTotal.toLocaleString()}\n\n`;
+            });
+
+            message += `*Total Amount:* Rs. ${total.toLocaleString()}\n\n`;
+            message += "Mujhe ye order place karna hai. Please confirm kar dein.";
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappUrl = `https://wa.me/${923242220222}?text=${encodedMessage}`;
+
+            window.open(whatsappUrl, '_blank');
+        }
+    </script>
+</body>
+</html>

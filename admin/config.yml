@@ -1,0 +1,19 @@
+backend:
+  name: git-gateway
+  branch: main # ya master jo bhi aapki github branch ho
+
+media_folder: "images"
+public_folder: "images"
+
+collections:
+  - name: "products"
+    label: "Products"
+    folder: "content/products"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Product Name", name: "title", widget: "string"}
+      - {label: "Price (Rs.)", name: "price", widget: "number"}
+      - {label: "Brand", name: "brand", widget: "string"}
+      - {label: "Specifications / Model", name: "specs", widget: "string"}
+      - {label: "Product Image", name: "image", widget: "image"}
