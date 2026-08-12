@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>inverter.inv - Industrial Automation & Electronics</title>
+    <title>inverter.in - Industrial Automation & Electronics</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -22,15 +22,23 @@
 </head>
 <body class="bg-slate-50 text-slate-800">
 
-    <!-- HEADER -->
+    <!-- HEADER WITH 3-LINE MENU -->
     <header class="sticky top-0 z-50 bg-navy text-white shadow-lg">
         <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex items-center justify-between h-16 md:h-20">
                 <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight">
-                    inverter<span class="text-accent">.in</span>v
+                    inverter<span class="text-accent">.in</span>
                 </a>
 
-                <div class="flex items-center gap-4 md:gap-6">
+                <!-- Desktop Links & Cart -->
+                <div class="hidden md:flex items-center gap-8">
+                    <nav class="flex gap-6 text-sm font-medium">
+                        <a href="index.html" class="hover:text-accent transition">Home</a>
+                        <a href="category.html" class="hover:text-accent transition">Categories</a>
+                        <a href="product.html" class="hover:text-accent transition">Products</a>
+                        <a href="checkout.html" class="hover:text-accent transition">Checkout</a>
+                    </nav>
+
                     <a href="cart.html" class="relative hover:text-accent transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -38,6 +46,34 @@
                         <span class="cart-count absolute -top-2 -right-2 bg-accent text-navy text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
                     </a>
                 </div>
+
+                <!-- Mobile Menu Icons (Cart + 3-Line Hamburger) -->
+                <div class="flex items-center gap-4 md:hidden">
+                    <a href="cart.html" class="relative hover:text-accent transition">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
+                        </svg>
+                        <span class="cart-count absolute -top-2 -right-2 bg-accent text-navy text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </a>
+
+                    <!-- 3-Line Button -->
+                    <button id="menuBtn" onclick="toggleMobileMenu()" class="text-white hover:text-accent focus:outline-none p-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Mobile Dropdown Navigation -->
+            <div id="mobileMenu" class="hidden md:hidden border-t border-slate-800 py-4">
+                <nav class="flex flex-col gap-3 font-medium text-slate-200">
+                    <a href="index.html" class="hover:text-accent py-1 transition">Home</a>
+                    <a href="category.html" class="hover:text-accent py-1 transition">Categories</a>
+                    <a href="product.html" class="hover:text-accent py-1 transition">Products</a>
+                    <a href="checkout.html" class="hover:text-accent py-1 transition">Checkout</a>
+                    <a href="cart.html" class="hover:text-accent py-1 transition">Cart 🛒</a>
+                </nav>
             </div>
         </div>
     </header>
@@ -70,8 +106,8 @@
 
             <!-- PRODUCT CARD 1: Delta PLC -->
             <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
-                <div class="aspect-square bg-slate-100 flex items-center justify-center p-6">
-                    <img src="images/plc1.jpg" alt="Delta PLC Controller" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=PLC+Image';">
+                <div class="h-56 bg-slate-100 flex items-center justify-center p-4">
+                    <img src="images/plc1.jpg" alt="Delta PLC Controller" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=PLC+Image';">
                 </div>
                 <div class="p-5 flex flex-col flex-grow">
                     <span class="text-xs text-electric font-semibold uppercase tracking-wider mb-1">Delta</span>
@@ -81,17 +117,17 @@
                     <p class="text-slate-500 text-sm mb-4 line-clamp-2">Compact & reliable PLC with 14 I/O points for automation applications.</p>
                     <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100">
                         <span class="text-xl font-bold text-navy">Rs. 18,500</span>
-                        <a href="product.html" class="bg-navy hover:bg-navy-dark text-white text-sm font-semibold py-2 px-4 rounded-lg transition">
-                            View Details
-                        </a>
+                        <button onclick="handleCartClick({id:'plc_1', name:'DVP14SS2 PLC Controller', price:18500})" class="bg-navy hover:bg-navy-dark text-white text-sm font-semibold py-2 px-4 rounded-lg transition">
+                            Add to Cart
+                        </button>
                     </div>
                 </div>
             </div>
 
             <!-- PRODUCT CARD 2: VFD Inverter -->
             <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
-                <div class="aspect-square bg-slate-100 flex items-center justify-center p-6">
-                    <img src="images/plc1.jpg" alt="VFD Inverter Drive" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=VFD+Image';">
+                <div class="h-56 bg-slate-100 flex items-center justify-center p-4">
+                    <img src="images/vfd.jpg" alt="VFD Inverter Drive" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=VFD+Image';">
                 </div>
                 <div class="p-5 flex flex-col flex-grow">
                     <span class="text-xs text-electric font-semibold uppercase tracking-wider mb-1">Inverter</span>
@@ -101,7 +137,7 @@
                     <p class="text-slate-500 text-sm mb-4 line-clamp-2">High performance motor speed control for industrial machinery.</p>
                     <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100">
                         <span class="text-xl font-bold text-navy">Rs. 24,000</span>
-                        <button onclick="addToCart({id:'vfd_1', name:'VFD Variable Speed Drive', price:24000, brand:'Inverter', specs:'3-Phase Control'})" class="bg-accent hover:bg-amber-500 text-navy text-sm font-semibold py-2 px-4 rounded-lg transition">
+                        <button onclick="handleCartClick({id:'vfd_1', name:'VFD Variable Speed Drive', price:24000, brand:'Inverter', specs:'3-Phase Control'})" class="bg-accent hover:bg-amber-500 text-navy text-sm font-semibold py-2 px-4 rounded-lg transition">
                             Add to Cart
                         </button>
                     </div>
@@ -110,8 +146,8 @@
 
             <!-- PRODUCT CARD 3: Servo Motor Drive -->
             <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition flex flex-col">
-                <div class="aspect-square bg-slate-100 flex items-center justify-center p-6">
-                    <img src="images/plc1.jpg" alt="Servo Drive Controller" class="w-full h-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=Servo+Image';">
+                <div class="h-56 bg-slate-100 flex items-center justify-center p-4">
+                    <img src="images/servo.jpg" alt="Servo Drive Controller" class="max-h-full max-w-full object-contain" onerror="this.onerror=null; this.src='https://via.placeholder.com/300?text=Servo+Image';">
                 </div>
                 <div class="p-5 flex flex-col flex-grow">
                     <span class="text-xs text-electric font-semibold uppercase tracking-wider mb-1">Servo</span>
@@ -121,7 +157,7 @@
                     <p class="text-slate-500 text-sm mb-4 line-clamp-2">Precision motion control system for high accuracy industrial automation.</p>
                     <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-100">
                         <span class="text-xl font-bold text-navy">Rs. 32,500</span>
-                        <button onclick="addToCart({id:'servo_1', name:'AC Servo Motor & Drive', price:32500, brand:'Servo', specs:'High Accuracy Drive'})" class="bg-accent hover:bg-amber-500 text-navy text-sm font-semibold py-2 px-4 rounded-lg transition">
+                        <button onclick="handleCartClick({id:'servo_1', name:'AC Servo Motor & Drive', price:32500, brand:'Servo', specs:'High Accuracy Drive'})" class="bg-accent hover:bg-amber-500 text-navy text-sm font-semibold py-2 px-4 rounded-lg transition">
                             Add to Cart
                         </button>
                     </div>
@@ -131,6 +167,25 @@
         </div>
     </section>
 
+    <!-- THANK YOU POPUP NOTIFICATION MODAL -->
+    <div id="thankYouModal" class="hidden fixed inset-0 z-50 bg-black/60 backdrop-blur-sm flex items-center justify-center p-4">
+        <div class="bg-white rounded-2xl max-w-sm w-full p-6 text-center shadow-2xl transform transition-all">
+            <div class="w-16 h-16 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4 text-3xl font-bold">
+                ✓
+            </div>
+            <h3 class="text-2xl font-bold text-navy mb-2">Thank You! 🎉</h3>
+            <p class="text-slate-600 text-sm mb-6">Item aapke cart mein add kar diya gaya hai. Aap checkout kar sakte hain!</p>
+            <div class="flex gap-3 justify-center">
+                <button onclick="closeThankYouModal()" class="w-1/2 border border-slate-300 text-slate-700 py-2.5 rounded-lg text-sm font-semibold hover:bg-slate-50 transition">
+                    Continue
+                </button>
+                <a href="cart.html" class="w-1/2 bg-accent hover:bg-amber-500 text-navy py-2.5 rounded-lg text-sm font-bold transition flex items-center justify-center">
+                    View Cart
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- FOOTER -->
     <footer class="bg-navy-dark text-white pt-10 pb-8 mt-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
@@ -138,6 +193,32 @@
         </div>
     </footer>
 
+    <!-- JAVASCRIPT FUNCTIONS -->
+    <script>
+        // Toggle 3-Line Mobile Menu
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Show Thank You Popup
+        function showThankYouModal() {
+            document.getElementById('thankYouModal').classList.remove('hidden');
+        }
+
+        // Close Thank You Popup
+        function closeThankYouModal() {
+            document.getElementById('thankYouModal').classList.add('hidden');
+        }
+
+        // Handle Add to Cart & Popup Trigger
+        function handleCartClick(product) {
+            if (typeof addToCart === 'function') {
+                addToCart(product);
+            }
+            showThankYouModal();
+        }
+    </script>
     <script src="js/main.js"></script>
 </body>
 </html>
