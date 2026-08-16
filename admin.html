@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Able Pro Admin Panel | inverter.in</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
             --primary-blue: #1e88e5;
@@ -175,6 +176,30 @@
         .btn-edit { background: #fef3c7; color: #d97706; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 11px; margin-right: 4px; }
         .btn-whatsapp-direct { background: #e8f5e9; color: #2e7d32; text-decoration: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; display: inline-block; }
 
+        /* Floating Modern Toast Notification */
+        #adminToast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #0f172a;
+            color: #ffffff;
+            padding: 14px 20px;
+            border-radius: 8px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            font-weight: 600;
+            border-left: 5px solid #10b981;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            z-index: 9999;
+            pointer-events: none;
+        }
+        #adminToast.show { transform: translateY(0); opacity: 1; }
+
         @media(max-width: 1100px) {
             .stats-row { grid-template-columns: repeat(2, 1fr); }
             .middle-grid { grid-template-columns: 1fr; }
@@ -252,10 +277,10 @@
                                 </select>
                             </div>
 
-                            <!-- Smart Clean Image Input -->
+                            <!-- Image URL Input -->
                             <div class="form-group">
-                                <label>🔗 Image Link / BBCode (ImgBB Link Paste Karein)</label>
-                                <input type="text" id="imgUrlInput" placeholder="Paste link or BBCode directly here" oninput="previewOnlineUrl(this.value)">
+                                <label>🔗 Image Link / BBCode (Direct Link)</label>
+                                <input type="text" id="imgUrlInput" placeholder="Paste image link directly here" oninput="previewOnlineUrl(this.value)">
                             </div>
 
                             <div class="preview-container">
@@ -319,11 +344,24 @@
         </div>
     </div>
 
+    <!-- Floating Toast Box -->
+    <div id="adminToast">
+        <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 20px;"></i>
+        <span id="adminToastMsg">Action completed successfully!</span>
+    </div>
+
     <script>
         const initialProducts = [
-            { id: 101, name: "DVP14SS2 PLC Controller", price: 18500, category: "PLC Controllers", image: "https://i.ibb.co/23qmjqKp/IMG-20260722-WA0013.jpg" },
+            { id: 101, name: "DVP14SS2 PLC Controller", price: 18500, category: "PLC Controllers", image: "https://i.postimg.cc/j5kDvhcZ/IMG-20260722-WA0016.jpg" },
             { id: 102, name: "VFD Inverter 5.5KW", price: 34000, category: "VFD Inverters", image: "images/vfd.jpg" }
         ];
+
+        function showAdminToast(msg) {
+            const toast = document.getElementById('adminToast');
+            document.getElementById('adminToastMsg').innerText = msg;
+            toast.classList.add('show');
+            setTimeout(() => { toast.classList.remove('show'); }, 2200);
+        }
 
         function switchAdminTab(tabId, element) {
             document.querySelectorAll('.tab-section').forEach(t => t.classList.remove('active-tab'));
@@ -340,19 +378,13 @@
             }
         }
 
-        // Automatic Link Extractor: BBCode ya kisi bhi text mein se seedha link nikaal leta hai
         function extractCleanUrl(raw) {
             if (!raw) return '';
             let text = raw.trim();
-            // Agar BBCode [img]...[/img] paste hua ho toh beech ka link dhoondo
             let match = text.match(/https?:\/\/[^\s\[\]<>"']+\.(jpg|jpeg|png|webp|gif)/i);
             if (match) return match[0];
-            
-            // Generic http link match
             match = text.match(/https?:\/\/[^\s\[\]<>"']+/);
-            if (match) return match[0];
-
-            return text;
+            return match ? match[0] : text;
         }
 
         function previewOnlineUrl(url) {
@@ -453,6 +485,7 @@
                 localStorage.removeItem('customer_orders');
                 renderOrdersTable();
                 refreshDashboard();
+                showAdminToast("Order history cleared!");
             }
         }
 
@@ -465,14 +498,15 @@
             const category = document.getElementById('prodCategory').value;
             const rawUrl = document.getElementById('imgUrlInput').value;
             
-            // Auto clean Link
             const image = extractCleanUrl(rawUrl) || 'images/plc.jpg';
 
             if (id) {
                 const idx = products.findIndex(p => p.id == id);
                 if (idx > -1) products[idx] = { id: Number(id), name, price, category, image };
+                showAdminToast(`Product "${name}" updated successfully!`);
             } else {
                 products.push({ id: Date.now(), name, price, category, image });
+                showAdminToast(`Product "${name}" saved successfully!`);
             }
 
             localStorage.setItem('site_products', JSON.stringify(products));
@@ -483,7 +517,6 @@
             document.getElementById('panelFormTitle').innerText = '➕ Add / Edit Product';
             document.getElementById('btnSubmit').innerText = '💾 SAVE PRODUCT';
             refreshDashboard();
-            alert("Product successfully saved with image!");
         }
 
         function editProduct(id) {
@@ -507,6 +540,7 @@
                 let products = getProducts().filter(p => p.id != id);
                 localStorage.setItem('site_products', JSON.stringify(products));
                 refreshDashboard();
+                showAdminToast("Product deleted!");
             }
         }
 
