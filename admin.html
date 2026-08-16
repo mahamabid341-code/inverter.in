@@ -252,10 +252,10 @@
                                 </select>
                             </div>
 
-                            <!-- Image URL Input Box -->
+                            <!-- Smart Clean Image Input -->
                             <div class="form-group">
-                                <label>🔗 Image Link / URL (ImgBB Direct Link)</label>
-                                <input type="url" id="imgUrlInput" placeholder="https://i.ibb.co/...jpg" oninput="previewOnlineUrl(this.value)" required>
+                                <label>🔗 Image Link / BBCode (ImgBB Link Paste Karein)</label>
+                                <input type="text" id="imgUrlInput" placeholder="Paste link or BBCode directly here" oninput="previewOnlineUrl(this.value)">
                             </div>
 
                             <div class="preview-container">
@@ -340,11 +340,27 @@
             }
         }
 
+        // Automatic Link Extractor: BBCode ya kisi bhi text mein se seedha link nikaal leta hai
+        function extractCleanUrl(raw) {
+            if (!raw) return '';
+            let text = raw.trim();
+            // Agar BBCode [img]...[/img] paste hua ho toh beech ka link dhoondo
+            let match = text.match(/https?:\/\/[^\s\[\]<>"']+\.(jpg|jpeg|png|webp|gif)/i);
+            if (match) return match[0];
+            
+            // Generic http link match
+            match = text.match(/https?:\/\/[^\s\[\]<>"']+/);
+            if (match) return match[0];
+
+            return text;
+        }
+
         function previewOnlineUrl(url) {
+            const clean = extractCleanUrl(url);
             const preview = document.getElementById('imagePreview');
             const status = document.getElementById('picStatus');
-            if (url && url.startsWith('http')) {
-                preview.src = url;
+            if (clean && clean.startsWith('http')) {
+                preview.src = clean;
                 status.innerText = "Link Loaded";
                 status.style.color = "#10b981";
             } else {
@@ -447,7 +463,10 @@
             const name = document.getElementById('prodName').value.trim();
             const price = Number(document.getElementById('prodPrice').value);
             const category = document.getElementById('prodCategory').value;
-            const image = document.getElementById('imgUrlInput').value.trim() || 'images/plc.jpg';
+            const rawUrl = document.getElementById('imgUrlInput').value;
+            
+            // Auto clean Link
+            const image = extractCleanUrl(rawUrl) || 'images/plc.jpg';
 
             if (id) {
                 const idx = products.findIndex(p => p.id == id);
@@ -464,7 +483,7 @@
             document.getElementById('panelFormTitle').innerText = '➕ Add / Edit Product';
             document.getElementById('btnSubmit').innerText = '💾 SAVE PRODUCT';
             refreshDashboard();
-            alert("Product successfully saved with online image link!");
+            alert("Product successfully saved with image!");
         }
 
         function editProduct(id) {
