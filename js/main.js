@@ -1,18 +1,18 @@
- // 1. Cart data localStorage se nikalna
+// 1. Cart data fetch karna
 function getCart() {
     return JSON.parse(localStorage.getItem('cart')) || [];
 }
 
-// 2. Cart ko save karna aur count update karna
+// 2. Cart save karna aur badges update karna
 function saveCart(cart) {
     localStorage.setItem('cart', JSON.stringify(cart));
     updateCartCount();
 }
 
-// 3. Top menu me cart count show karna
+// 3. Top-right cart badge count update karna (Total Quantity Sum)
 function updateCartCount() {
     const cart = getCart();
-    const totalItems = cart.reduce((total, item) => total + (item.quantity || 1), 0);
+    const totalItems = cart.reduce((total, item) => total + (Number(item.quantity) || 1), 0);
     const cartCountElements = document.querySelectorAll('.cart-count, #cart-count');
 
     cartCountElements.forEach(el => {
@@ -20,103 +20,99 @@ function updateCartCount() {
     });
 }
 
-// 4. Product add karne ka function (Product page ke liye)
+// 4. Product add karne ka function
 function addToCart(product) {
     let cart = getCart();
-    // Check karein ke item pehle se cart me hai ya nahi
     const existingIndex = cart.findIndex(item => (item.id && item.id === product.id) || (item.name && item.name === product.name));
-    const qtyToAdd = product.quantity || 1;
+    const qtyToAdd = Number(product.quantity) || 1;
 
     if (existingIndex > -1) {
-        cart[existingIndex].quantity = (cart[existingIndex].quantity || 1) + qtyToAdd;
+        cart[existingIndex].quantity = (Number(cart[existingIndex].quantity) || 1) + qtyToAdd;
     } else {
         product.quantity = qtyToAdd;
         cart.push(product);
     }
 
     saveCart(cart);
-    alert(`${product.name || product.title || 'Item'} cart me add ho gaya hai!`);
+    alert(`${product.name || product.title} cart me add ho gaya hai!`);
 }
 
-// 5. Cart Page par items aur summary render karna (Cart page ke liye)
+// 5. Shopping Cart Page Render Karna (Item list + Order Summary with Total Items)
 function displayCartItems() {
-    const cartItemsContainer = document.getElementById('cart-items');
-    const orderSummaryContainer = document.getElementById('order-summary');
-
-    // Agar yeh page cart.html nahi hai, to function yahi rok do
-    if (!cartItemsContainer) return;
+    const cartContainer = document.getElementById('cart-items-container') || document.querySelector('.cart-container');
+    if (!cartContainer) return;
 
     const cart = getCart();
 
-    // Agar cart khali hai
     if (cart.length === 0) {
-        cartItemsContainer.innerHTML = `
-            <div class="bg-white p-8 rounded-lg shadow-sm border text-center">
-                <p class="text-slate-500 mb-4">Aapka cart bilkul khali hai.</p>
-                <a href="index.html" class="inline-block bg-accent hover:bg-yellow-500 text-navy px-6 py-2 rounded-md font-bold transition">Products Dekhein</a>
-            </div>`;
-        
-        if (orderSummaryContainer) orderSummaryContainer.innerHTML = '';
+        cartContainer.innerHTML = `
+            <div style="text-align: center; padding: 50px 20px;">
+                <h3 style="color: #0b2545;">Aapka shopping cart khali hai.</h3>
+                <p style="color: #666;">Koi product cart mein shamil nahi kiya gaya.</p>
+                <a href="index.html" style="display: inline-block; margin-top: 15px; padding: 10px 22px; background: #fca311; color: #fff; text-decoration: none; border-radius: 5px; font-weight: bold;">Products Dekhein</a>
+            </div>
+        `;
         return;
     }
 
-    // Agar items hain, to unhe HTML me design karna
-    let itemsHTML = '';
     let grandTotal = 0;
+    let totalQuantity = 0;
+    let itemsHTML = '';
 
     cart.forEach((item, index) => {
         const itemPrice = Number(item.price) || 0;
-        const itemQty = item.quantity || 1;
+        const itemQty = Number(item.quantity) || 1;
         const itemTotal = itemPrice * itemQty;
+        
         grandTotal += itemTotal;
+        totalQuantity += itemQty;
 
         itemsHTML += `
-            <div class="bg-white p-4 rounded-lg shadow-sm border flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div style="display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 18px 20px; border-radius: 8px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
                 <div>
-                    <h3 class="font-bold text-navy text-lg">${item.name || item.title || 'Product'}</h3>
-                    <p class="text-sm text-slate-500 mt-1">Rs. ${itemPrice.toLocaleString()} &times; ${itemQty}</p>
+                    <h4 style="margin: 0 0 6px 0; color: #0b2545; font-size: 16px;">${item.name || item.title}</h4>
+                    <p style="margin: 0; color: #666; font-size: 14px;">Rs. ${itemPrice.toLocaleString()} &times; ${itemQty}</p>
                 </div>
-                <div class="flex items-center gap-6 w-full sm:w-auto justify-between sm:justify-end">
-                    <span class="font-bold text-navy text-lg">Rs. ${itemTotal.toLocaleString()}</span>
-                    <button onclick="removeFromCart(${index})" class="text-red-500 hover:text-red-700 bg-red-50 px-3 py-1 rounded text-sm font-medium transition">Remove</button>
+                <div style="display: flex; align-items: center; gap: 20px;">
+                    <strong style="color: #0b2545; font-size: 16px;">Rs. ${itemTotal.toLocaleString()}</strong>
+                    <button onclick="removeFromCart(${index})" style="background: #ff4d4f; color: white; border: none; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px;">Remove</button>
                 </div>
             </div>
         `;
     });
 
-    // Items screen par dikhana
-    cartItemsContainer.innerHTML = itemsHTML;
-
-    // Right side par Order Summary dikhana
-    if (orderSummaryContainer) {
-        orderSummaryContainer.innerHTML = `
-            <div class="bg-white p-6 rounded-lg shadow-sm border sticky top-24">
-                <h3 class="text-xl font-bold text-navy mb-4 border-b pb-2">Order Summary</h3>
-                <div class="flex justify-between text-slate-600 mb-4">
+    cartContainer.innerHTML = `
+        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 25px; max-width: 1050px; margin: 30px auto; padding: 0 15px;">
+            <div>
+                ${itemsHTML}
+            </div>
+            
+            <!-- Order Summary Section -->
+            <div style="background: #fff; padding: 22px; border-radius: 8px; height: fit-content; box-shadow: 0 2px 6px rgba(0,0,0,0.05);">
+                <h3 style="margin-top: 0; color: #0b2545; border-bottom: 1px solid #eee; padding-bottom: 10px;">Order Summary</h3>
+                <div style="display: flex; justify-content: space-between; margin: 15px 0; color: #555; font-size: 15px;">
                     <span>Total Items:</span>
-                    <span>${cart.length}</span>
+                    <strong>${totalQuantity}</strong>
                 </div>
-                <div class="flex justify-between font-bold text-xl text-navy border-t pt-4">
+                <div style="display: flex; justify-content: space-between; margin: 15px 0; color: #0b2545; font-size: 17px; font-weight: bold; border-top: 1px solid #eee; padding-top: 12px;">
                     <span>Total Amount:</span>
                     <span>Rs. ${grandTotal.toLocaleString()}</span>
                 </div>
-                <a href="checkout.html" class="block text-center mt-6 bg-accent hover:bg-yellow-500 text-navy py-3 rounded-lg font-bold transition w-full">
-                    Proceed to Checkout
-                </a>
+                <a href="checkout.html" style="display: block; text-align: center; background: #fca311; color: white; padding: 12px; text-decoration: none; border-radius: 6px; font-weight: bold; margin-top: 15px;">Proceed to Checkout</a>
             </div>
-        `;
-    }
+        </div>
+    `;
 }
 
-// 6. Item remove karne ka function
+// 6. Product remove karna
 function removeFromCart(index) {
     let cart = getCart();
-    cart.splice(index, 1); // Array se item nikalna
-    saveCart(cart); // Bacha hua cart save karna
-    displayCartItems(); // Screen ko refresh karna
+    cart.splice(index, 1);
+    saveCart(cart);
+    displayCartItems();
 }
 
-// 7. Jab page khule to count aur items update ho jayein
+// 7. Page ready hone par chalana
 document.addEventListener('DOMContentLoaded', () => {
     updateCartCount();
     displayCartItems();

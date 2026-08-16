@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Delta DVP14SS2 PLC - inverter.in</title>
+    <title>DVP14SS2 PLC - inverter.in</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -23,14 +23,13 @@
 <body class="bg-slate-50 text-slate-800">
 
     <!-- HEADER -->
-    <header class="sticky top-0 z-50 bg-navy text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="flex items-center justify-between h-16 md:h-20">
-                <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight">
-                    inverter<span class="text-accent">.in</span>v
+    <header class="sticky top-0 z-50 bg-navy text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="text-2xl font-bold tracking-tight">
+                    inverter<span class="text-accent">.in</span>
                 </a>
-
-                <div class="flex items-center gap-4 md:gap-6">
+                <div class="flex items-center gap-4">
                     <a href="cart.html" class="relative hover:text-accent transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
@@ -44,160 +43,140 @@
 
     <!-- BREADCRUMB -->
     <div class="bg-white border-b">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+        <div class="max-w-6xl mx-auto px-4 py-3">
             <nav class="text-sm text-slate-500">
                 <a href="index.html" class="hover:text-electric">Home</a>
                 <span class="mx-2">/</span>
-                <a href="category.html" class="hover:text-electric">PLC</a>
+                <a href="category.html" class="hover:text-electric">Products</a>
                 <span class="mx-2">/</span>
                 <span class="text-navy font-medium">DVP14SS2 PLC</span>
             </nav>
         </div>
     </div>
 
-    <!-- PRODUCT DETAIL -->
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 py-8 md:py-12">
+    <!-- PRODUCT -->
+    <section class="max-w-6xl mx-auto px-4 py-8 md:py-12">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
 
-            <!-- LEFT: Image -->
-            <div>
-                <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-                    <div class="aspect-square bg-slate-100 flex items-center justify-center">
-                        <img src="images/plc1.jpg" alt="DVP14SS2 PLC" class="w-full h-full object-contain p-6" onerror="this.onerror=null; this.src='https://via.placeholder.com/400?text=Image+Not+Found';">
-                    </div>
+            <!-- Image -->
+            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center p-6">
+                    <img src="images/inverter1.jpg" alt="DVP14SS2 PLC" class="max-h-full w-full object-contain"
+                         onerror="this.style.display='none'; this.parentElement.innerHTML='<div class=\'text-6xl text-slate-300\'>🔌</div>';">
                 </div>
             </div>
 
-            <!-- RIGHT: Info -->
+            <!-- Details -->
             <div>
                 <p class="text-sm text-electric font-medium mb-2">Delta</p>
                 <h1 class="text-2xl md:text-3xl font-bold text-navy mb-3">DVP14SS2 PLC Controller</h1>
 
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="inline-flex items-center gap-1.5 bg-green-100 text-green-700 text-sm font-medium px-3 py-1 rounded-full">
-                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
-                        In Stock
-                    </span>
+                <div class="flex items-center gap-3 mb-5">
+                    <span class="bg-green-100 text-green-700 text-sm font-medium px-3 py-1 rounded-full">In Stock</span>
                     <span class="text-sm text-slate-500">SKU: DVP14SS211R</span>
                 </div>
 
-                <!-- DYNAMIC PRICE DISPLAY -->
                 <div class="mb-6">
-                    <span id="product-price-display" class="text-3xl font-bold text-navy">Rs. 18,500</span>
+                    <span class="text-3xl font-bold text-navy">Rs. 18,500</span>
                 </div>
 
                 <p class="text-slate-600 mb-6">
-                    Compact and reliable PLC from Delta DVP-SS2 series. Ideal for small to medium automation applications.
+                    Compact and reliable PLC from Delta DVP-SS2 series. Perfect for small to medium automation applications.
                 </p>
 
-                <!-- VARIANT & QUANTITY SELECTORS -->
-                <div class="space-y-4 mb-6">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Select Model / Type</label>
-                        <select id="variant-select" onchange="updateSelectedPrice()" class="w-full border border-slate-300 rounded-lg p-2.5 bg-white text-navy font-medium focus:ring-2 focus:ring-electric outline-none">
-                            <option value="18500" data-name="DVP14SS211R (Relay Output)">DVP14SS211R (Relay) - Rs. 18,500</option>
-                            <option value="19500" data-name="DVP14SS211T (Transistor Output)">DVP14SS211T (Transistor) - Rs. 19,500</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-slate-700 mb-1">Quantity</label>
-                        <select id="quantity-select" onchange="updateSelectedPrice()" class="w-28 border border-slate-300 rounded-lg p-2.5 bg-white text-navy font-medium focus:ring-2 focus:ring-electric outline-none">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                        </select>
-                    </div>
-                </div>
-
-                <!-- Key Specifications -->
+                <!-- Specs -->
                 <div class="bg-white rounded-xl border border-slate-200 p-5 mb-6">
-                    <h3 class="font-semibold text-navy mb-3">Key Specifications</h3>
-                    <div class="grid grid-cols-2 gap-y-3 text-sm">
-                        <div class="text-slate-500">I/O Points</div>
-                        <div class="font-medium text-navy">14 (8DI / 6DO)</div>
-                        <div class="text-slate-500">Power Supply</div>
-                        <div class="font-medium text-navy">24V DC</div>
-                        <div class="text-slate-500">Program Capacity</div>
-                        <div class="font-medium text-navy">8k Steps</div>
-                        <div class="text-slate-500">Communication</div>
-                        <div class="font-medium text-navy">RS-232 / RS-485</div>
+                    <h3 class="font-semibold text-navy mb-4">Key Specifications</h3>
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between border-b border-slate-100 pb-2">
+                            <span class="text-slate-500">I/O Points</span>
+                            <span class="font-medium">14 (8DI / 6DO)</span>
+                        </div>
+                        <div class="flex justify-between border-b border-slate-100 pb-2">
+                            <span class="text-slate-500">Power Supply</span>
+                            <span class="font-medium">24V DC</span>
+                        </div>
+                        <div class="flex justify-between border-b border-slate-100 pb-2">
+                            <span class="text-slate-500">Program Capacity</span>
+                            <span class="font-medium">8k Steps</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-slate-500">Communication</span>
+                            <span class="font-medium">RS-232 / RS-485</span>
+                        </div>
                     </div>
                 </div>
 
                 <!-- ADD TO CART BUTTON -->
-                <button onclick="handleAddToCart()" class="w-full bg-accent hover:bg-amber-500 text-navy font-semibold py-3.5 px-6 rounded-lg transition mb-6 shadow-md">
+                <button onclick="addToCart({
+                    id: 'dvp14ss2',
+                    name: 'DVP14SS2 PLC Controller',
+                    price: 18500,
+                    brand: 'Delta',
+                    specs: '14 Points | 24V DC'
+                })" class="w-full bg-accent hover:bg-amber-500 text-navy font-semibold py-3.5 rounded-lg transition mb-3">
                     Add to Cart
                 </button>
 
-                <div class="flex flex-wrap gap-4 text-sm text-slate-600">
-                    <div class="flex items-center gap-2">
-                        <span class="text-green-500">✓</span> Genuine Product
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-green-500">✓</span> Fast Delivery
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="text-green-500">✓</span> Technical Support
-                    </div>
+                <a href="category.html" class="block w-full text-center border-2 border-navy text-navy hover:bg-navy hover:text-white font-medium py-3 rounded-lg transition">
+                    Explore All Categories
+                </a>
+
+                <div class="flex flex-wrap gap-4 text-sm text-slate-600 mt-5">
+                    <span>✓ Genuine Product</span>
+                    <span>✓ Fast Delivery</span>
+                    <span>✓ Technical Support</span>
                 </div>
             </div>
+        </div>
+    </section>
 
+    <!-- RELATED PRODUCTS -->
+    <section class="max-w-6xl mx-auto px-4 pb-16">
+        <h2 class="text-xl font-bold text-navy mb-6">Related Products</h2>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <a href="product.html" class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center text-4xl">🔌</div>
+                <div class="p-3">
+                    <p class="text-xs text-slate-500">Delta</p>
+                    <h3 class="font-semibold text-navy text-sm">DVP28SV PLC</h3>
+                    <p class="font-bold text-navy text-sm mt-1">Rs. 32,000</p>
+                </div>
+            </a>
+            <a href="product.html" class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center text-4xl">⚡</div>
+                <div class="p-3">
+                    <p class="text-xs text-slate-500">Delta</p>
+                    <h3 class="font-semibold text-navy text-sm">ASD-B2 Servo</h3>
+                    <p class="font-bold text-navy text-sm mt-1">Rs. 42,000</p>
+                </div>
+            </a>
+            <a href="product.html" class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center text-4xl">🔄</div>
+                <div class="p-3">
+                    <p class="text-xs text-slate-500">Inverter</p>
+                    <h3 class="font-semibold text-navy text-sm">VFD Drive</h3>
+                    <p class="font-bold text-navy text-sm mt-1">Rs. 28,900</p>
+                </div>
+            </a>
+            <a href="product.html" class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-md transition">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center text-4xl">🖥️</div>
+                <div class="p-3">
+                    <p class="text-xs text-slate-500">HMI</p>
+                    <h3 class="font-semibold text-navy text-sm">DOP-B07 HMI</h3>
+                    <p class="font-bold text-navy text-sm mt-1">Rs. 35,500</p>
+                </div>
+            </a>
         </div>
     </section>
 
     <!-- FOOTER -->
-    <footer class="bg-navy-dark text-white pt-10 pb-8 mt-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-            <p class="text-slate-400 text-sm">© 2026 inverter.in — All Rights Reserved.</p>
+    <footer class="bg-navy-dark text-white py-8">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">© 2026 inverter.in — All Rights Reserved</p>
         </div>
     </footer>
 
-    <!-- SCRIPTS -->
     <script src="js/main.js"></script>
-    <script>
-        function updateSelectedPrice() {
-            const variantSelect = document.getElementById('variant-select');
-            const quantitySelect = document.getElementById('quantity-select');
-            const priceDisplay = document.getElementById('product-price-display');
-
-            if (variantSelect && quantitySelect && priceDisplay) {
-                const basePrice = parseInt(variantSelect.value);
-                const qty = parseInt(quantitySelect.value);
-                const totalPrice = basePrice * qty;
-
-                priceDisplay.textContent = `Rs. ${totalPrice.toLocaleString()}`;
-            }
-        }
-
-        function handleAddToCart() {
-            const variantSelect = document.getElementById('variant-select');
-            const quantitySelect = document.getElementById('quantity-select');
-            
-            if (!variantSelect || !quantitySelect) return;
-
-            const selectedOption = variantSelect.options[variantSelect.selectedIndex];
-            const variantName = selectedOption.getAttribute('data-name') || selectedOption.text;
-            const basePrice = parseInt(variantSelect.value);
-            const qty = parseInt(quantitySelect.value);
-
-            const product = {
-                id: 'dvp14ss2_' + variantSelect.value,
-                name: 'DVP14SS2 PLC Controller',
-                price: basePrice,
-                quantity: qty,
-                brand: 'Delta',
-                specs: variantName
-            };
-
-            if (typeof addToCart === 'function') {
-                addToCart(product);
-            } else {
-                alert('Error: main.js file correctly load nahi hui!');
-            }
-        }
-    </script>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLC - inverter.in</title>
+    <title>Products - inverter.in</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -23,282 +23,124 @@
 <body class="bg-slate-50 text-slate-800">
 
     <!-- HEADER -->
-    <header class="sticky top-0 z-50 bg-navy text-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6">
-            <div class="flex items-center justify-between h-16 md:h-20">
-                <a href="index.html" class="text-2xl md:text-3xl font-bold tracking-tight">
+    <header class="sticky top-0 z-50 bg-navy text-white shadow-md">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex items-center justify-between h-16">
+                <a href="index.html" class="text-2xl font-bold tracking-tight">
                     inverter<span class="text-accent">.in</span>
                 </a>
-
-                <div class="hidden md:flex flex-1 max-w-xl mx-8">
-                    <div class="relative w-full">
-                        <input type="text" placeholder="Search PLC, Servo, Inverters..." 
-                               class="w-full py-2.5 px-4 pr-12 rounded-lg text-slate-800 focus:outline-none focus:ring-2 focus:ring-accent">
-                        <button class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="flex items-center gap-4 md:gap-6">
-                    <button class="hidden sm:block hover:text-accent transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-                        </svg>
-                    </button>
-                    <button class="relative hover:text-accent transition">
+                <div class="flex items-center gap-4">
+                    <a href="cart.html" class="relative hover:text-accent transition">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
                         <span class="cart-count absolute -top-2 -right-2 bg-accent text-navy text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
-                    </button>
-                    <button class="hidden sm:block hover:text-accent transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </button>
-                    <button id="mobile-menu-btn" class="md:hidden hover:text-accent">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        </svg>
-                    </button>
+                    </a>
                 </div>
-            </div>
-        </div>
-
-        <div id="mobile-menu" class="hidden md:hidden bg-navy-dark border-t border-slate-700">
-            <div class="px-4 py-4 space-y-3">
-                <a href="index.html" class="block py-2 hover:text-accent">Home</a>
-                <a href="category.html" class="block py-2 hover:text-accent">PLC</a>
-                <a href="#" class="block py-2 hover:text-accent">Servo Drives</a>
-                <a href="#" class="block py-2 hover:text-accent">Inverters / VFD</a>
-                <a href="#" class="block py-2 hover:text-accent">HMI</a>
             </div>
         </div>
     </header>
 
-    <!-- BREADCRUMB -->
+    <!-- TITLE -->
     <div class="bg-white border-b">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-            <nav class="text-sm text-slate-500 mb-2">
-                <a href="index.html" class="hover:text-electric">Home</a>
-                <span class="mx-2">/</span>
-                <span class="text-navy font-medium">PLC</span>
-            </nav>
-            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                <h1 class="text-2xl md:text-3xl font-bold text-navy">PLC Controllers</h1>
-                <p class="text-slate-500 text-sm">Showing 6 products</p>
-            </div>
+        <div class="max-w-6xl mx-auto px-4 py-6">
+            <h1 class="text-2xl md:text-3xl font-bold text-navy">All Products</h1>
+            <p class="text-slate-500 text-sm mt-1">PLC, Servo, Inverters & more</p>
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-8">
-        <div class="flex flex-col lg:flex-row gap-8">
+    <!-- PRODUCTS -->
+    <section class="max-w-6xl mx-auto px-4 py-8">
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
 
-            <!-- FILTERS -->
-            <aside class="lg:w-64 flex-shrink-0">
-                <button id="filter-btn" class="lg:hidden w-full mb-4 flex items-center justify-center gap-2 bg-white border border-slate-200 rounded-lg py-3 font-medium text-navy">
-                    Filters
-                </button>
-
-                <div id="filter-panel" class="hidden lg:block bg-white rounded-xl border border-slate-200 p-5 sticky top-24">
-                    <div class="flex items-center justify-between mb-5">
-                        <h3 class="font-semibold text-navy">Filters</h3>
-                        <button class="text-sm text-electric hover:underline">Clear All</button>
-                    </div>
-
-                    <div class="mb-6">
-                        <h4 class="text-sm font-semibold text-slate-700 mb-3">Brand</h4>
-                        <div class="space-y-2 text-sm">
-                            <label class="flex items-center gap-2"><input type="checkbox" class="rounded"> Delta</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" class="rounded"> Siemens</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" class="rounded"> Mitsubishi</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" class="rounded"> Schneider</label>
-                        </div>
-                    </div>
-
-                    <div class="mb-6">
-                        <h4 class="text-sm font-semibold text-slate-700 mb-3">I/O Points</h4>
-                        <div class="space-y-2 text-sm">
-                            <label class="flex items-center gap-2"><input type="checkbox" class="rounded"> Up to 16 Points</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" class="rounded"> 16 - 32 Points</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" class="rounded"> 32+ Points</label>
-                        </div>
-                    </div>
-
-                    <div class="mb-6">
-                        <h4 class="text-sm font-semibold text-slate-700 mb-3">Voltage</h4>
-                        <div class="space-y-2 text-sm">
-                            <label class="flex items-center gap-2"><input type="checkbox" class="rounded"> 24V DC</label>
-                            <label class="flex items-center gap-2"><input type="checkbox" class="rounded"> 220V AC</label>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h4 class="text-sm font-semibold text-slate-700 mb-3">Availability</h4>
-                        <label class="flex items-center gap-2 text-sm"><input type="checkbox" checked class="rounded"> In Stock</label>
-                    </div>
+            <!-- Product 1 -->
+            <a href="product.html" class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center p-4">
+                    <span class="text-4xl">🔌</span>
                 </div>
-            </aside>
-
-            <!-- PRODUCTS -->
-            <div class="flex-1">
-                <div class="bg-white rounded-xl border border-slate-200 p-4 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-                    <p class="text-sm text-slate-600">6 products found</p>
-                    <select class="border border-slate-200 rounded-lg px-3 py-2 text-sm">
-                        <option>Newest</option>
-                        <option>Price: Low to High</option>
-                        <option>Price: High to Low</option>
-                        <option>Popularity</option>
-                    </select>
+                <div class="p-4">
+                    <p class="text-xs text-slate-500">Delta</p>
+                    <h3 class="font-semibold text-navy text-sm">DVP14SS2 PLC</h3>
+                    <p class="text-xs text-slate-500 mt-1">14 Points | 24V DC</p>
+                    <p class="font-bold text-navy mt-2">Rs. 18,500</p>
                 </div>
+            </a>
 
-                <div class="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
-
-                    <!-- Product 1 -->
-                    <div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition hover:-translate-y-1">
-                        <a href="product.html">
-                            <div class="aspect-square bg-slate-100 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                                </svg>
-                            </div>
-                        </a>
-                        <div class="p-4">
-                            <p class="text-xs text-slate-500 mb-1">Delta</p>
-                            <a href="product.html"><h3 class="font-semibold text-navy text-sm mb-1 hover:text-electric">DVP14SS2 PLC</h3></a>
-                            <p class="text-xs text-slate-500 mb-3">14 Points | 24V DC</p>
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-navy">Rs. 18,500</span>
-                                <button class="bg-accent hover:bg-amber-500 text-navy text-xs font-semibold px-3 py-1.5 rounded-lg">Add</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 2 -->
-                    <div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition hover:-translate-y-1">
-                        <a href="product.html">
-                            <div class="aspect-square bg-slate-100 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                                </svg>
-                            </div>
-                        </a>
-                        <div class="p-4">
-                            <p class="text-xs text-slate-500 mb-1">Delta</p>
-                            <a href="product.html"><h3 class="font-semibold text-navy text-sm mb-1 hover:text-electric">DVP28SV PLC</h3></a>
-                            <p class="text-xs text-slate-500 mb-3">28 Points | 24V DC</p>
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-navy">Rs. 32,000</span>
-                                <button class="bg-accent hover:bg-amber-500 text-navy text-xs font-semibold px-3 py-1.5 rounded-lg">Add</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 3 -->
-                    <div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition hover:-translate-y-1">
-                        <a href="product.html">
-                            <div class="aspect-square bg-slate-100 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                                </svg>
-                            </div>
-                        </a>
-                        <div class="p-4">
-                            <p class="text-xs text-slate-500 mb-1">Siemens</p>
-                            <a href="product.html"><h3 class="font-semibold text-navy text-sm mb-1 hover:text-electric">S7-1200 CPU</h3></a>
-                            <p class="text-xs text-slate-500 mb-3">14 Points | Compact</p>
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-navy">Rs. 45,500</span>
-                                <button class="bg-accent hover:bg-amber-500 text-navy text-xs font-semibold px-3 py-1.5 rounded-lg">Add</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 4 -->
-                    <div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition hover:-translate-y-1">
-                        <a href="product.html">
-                            <div class="aspect-square bg-slate-100 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                                </svg>
-                            </div>
-                        </a>
-                        <div class="p-4">
-                            <p class="text-xs text-slate-500 mb-1">Mitsubishi</p>
-                            <a href="product.html"><h3 class="font-semibold text-navy text-sm mb-1 hover:text-electric">FX5U PLC</h3></a>
-                            <p class="text-xs text-slate-500 mb-3">32 Points | High Speed</p>
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-navy">Rs. 68,000</span>
-                                <button class="bg-accent hover:bg-amber-500 text-navy text-xs font-semibold px-3 py-1.5 rounded-lg">Add</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 5 -->
-                    <div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition hover:-translate-y-1">
-                        <a href="product.html">
-                            <div class="aspect-square bg-slate-100 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                                </svg>
-                            </div>
-                        </a>
-                        <div class="p-4">
-                            <p class="text-xs text-slate-500 mb-1">Delta</p>
-                            <a href="product.html"><h3 class="font-semibold text-navy text-sm mb-1 hover:text-electric">DVP12SE PLC</h3></a>
-                            <p class="text-xs text-slate-500 mb-3">12 Points | Ethernet</p>
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-navy">Rs. 22,800</span>
-                                <button class="bg-accent hover:bg-amber-500 text-navy text-xs font-semibold px-3 py-1.5 rounded-lg">Add</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Product 6 -->
-                    <div class="bg-white border border-slate-200 rounded-xl overflow-hidden hover:shadow-xl transition hover:-translate-y-1">
-                        <a href="product.html">
-                            <div class="aspect-square bg-slate-100 flex items-center justify-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-slate-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z" />
-                                </svg>
-                            </div>
-                        </a>
-                        <div class="p-4">
-                            <p class="text-xs text-slate-500 mb-1">Schneider</p>
-                            <a href="product.html"><h3 class="font-semibold text-navy text-sm mb-1 hover:text-electric">Modicon M221</h3></a>
-                            <p class="text-xs text-slate-500 mb-3">16 Points | Compact</p>
-                            <div class="flex items-center justify-between">
-                                <span class="font-bold text-navy">Rs. 38,900</span>
-                                <button class="bg-accent hover:bg-amber-500 text-navy text-xs font-semibold px-3 py-1.5 rounded-lg">Add</button>
-                            </div>
-                        </div>
-                    </div>
-
+            <!-- Product 2 -->
+            <a href="product.html" class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center p-4">
+                    <span class="text-4xl">⚡</span>
                 </div>
-            </div>
+                <div class="p-4">
+                    <p class="text-xs text-slate-500">Delta</p>
+                    <h3 class="font-semibold text-navy text-sm">ASD-B2 Servo</h3>
+                    <p class="text-xs text-slate-500 mt-1">1.5 kW | 220V</p>
+                    <p class="font-bold text-navy mt-2">Rs. 42,000</p>
+                </div>
+            </a>
+
+            <!-- Product 3 -->
+            <a href="product.html" class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center p-4">
+                    <span class="text-4xl">🔄</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-slate-500">Inverter</p>
+                    <h3 class="font-semibold text-navy text-sm">VFD Drive</h3>
+                    <p class="text-xs text-slate-500 mt-1">2.2 kW | 380V</p>
+                    <p class="font-bold text-navy mt-2">Rs. 28,900</p>
+                </div>
+            </a>
+
+            <!-- Product 4 -->
+            <a href="product.html" class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center p-4">
+                    <span class="text-4xl">🖥️</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-slate-500">HMI</p>
+                    <h3 class="font-semibold text-navy text-sm">DOP-B07 HMI</h3>
+                    <p class="text-xs text-slate-500 mt-1">7 inch Touch</p>
+                    <p class="font-bold text-navy mt-2">Rs. 35,500</p>
+                </div>
+            </a>
+
+            <!-- Product 5 -->
+            <a href="product.html" class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center p-4">
+                    <span class="text-4xl">🔌</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-slate-500">Siemens</p>
+                    <h3 class="font-semibold text-navy text-sm">S7-1200 PLC</h3>
+                    <p class="text-xs text-slate-500 mt-1">14 Points</p>
+                    <p class="font-bold text-navy mt-2">Rs. 45,500</p>
+                </div>
+            </a>
+
+            <!-- Product 6 -->
+            <a href="product.html" class="bg-white rounded-xl border border-slate-200 overflow-hidden hover:shadow-lg transition">
+                <div class="aspect-square bg-slate-50 flex items-center justify-center p-4">
+                    <span class="text-4xl">⚡</span>
+                </div>
+                <div class="p-4">
+                    <p class="text-xs text-slate-500">Mitsubishi</p>
+                    <h3 class="font-semibold text-navy text-sm">FX5U PLC</h3>
+                    <p class="text-xs text-slate-500 mt-1">32 Points</p>
+                    <p class="font-bold text-navy mt-2">Rs. 68,000</p>
+                </div>
+            </a>
+
         </div>
-    </div>
+    </section>
 
     <!-- FOOTER -->
-    <footer class="bg-navy-dark text-white pt-14 pb-8 mt-10">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center">
-            <p class="text-slate-400 text-sm">© 2026 inverter.in — All Rights Reserved.</p>
+    <footer class="bg-navy-dark text-white py-8 mt-8">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <p class="text-slate-400 text-sm">© 2026 inverter.in — All Rights Reserved</p>
         </div>
     </footer>
 
-    <script>
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-        dococument.getElementById('mobile-menu').classList.toggle('hidden');
-        });
-        document.getElementById('filter-btn').addEventListener('click', function() {
-        document.getElementById('filter-panel').classList.toggle('hidden');
-        });
-    </script>
-    </script src="js/main.js"></script>
-
+    <script src="js/main.js"></script>
 </body>
 </html>
