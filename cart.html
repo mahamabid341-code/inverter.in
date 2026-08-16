@@ -4,75 +4,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - inverter.in</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        navy: '#0A2540',
-                        'navy-dark': '#071A2F',
-                        electric: '#2563EB',
-                        accent: '#F59E0B',
-                    }
-                }
-            }
-        }
-    </script>
+    <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-slate-50 text-slate-800">
+<body>
 
-    <!-- HEADER -->
-    <header class="sticky top-0 z-50 bg-navy text-white shadow-md">
-        <div class="max-w-6xl mx-auto px-4">
-            <div class="flex items-center justify-between h-16">
-                <a href="index.html" class="text-2xl font-bold tracking-tight">
-                    inverter<span class="text-accent">.in</span>
-                </a>
-                <div class="flex items-center gap-4">
-                    <a href="cart.html" class="relative hover:text-accent transition">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
-                        </svg>
-                        <span class="cart-count absolute -top-2 -right-2 bg-accent text-navy text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
-                    </a>
-                </div>
-            </div>
-        </div>
+    <!-- Header / Navbar -->
+    <header style="background: #0b2545; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; color: white;">
+        <a href="index.html" style="color: #fca311; font-weight: bold; font-size: 22px; text-decoration: none;">inverter<span style="color: #fff;">.in</span></a>
+        <a href="cart.html" style="color: white; text-decoration: none; font-size: 20px;">
+            🛒 <span class="cart-count" style="background: #fca311; color: white; padding: 2px 7px; border-radius: 50%; font-size: 13px; font-weight: bold;">0</span>
+        </a>
     </header>
 
-    <!-- TITLE -->
-    <div class="bg-white border-b">
-        <div class="max-w-6xl mx-auto px-4 py-6">
-            <h1 class="text-2xl md:text-3xl font-bold text-navy">Shopping Cart</h1>
-            <p class="text-slate-500 text-sm mt-1">Your selected products</p>
+    <!-- Page Title Banner -->
+    <div style="background: #eef2f5; padding: 25px 20px; border-bottom: 1px solid #ddd;">
+        <div style="max-width: 1050px; margin: 0 auto;">
+            <h1 style="margin: 0; color: #0b2545; font-size: 26px;">Shopping Cart</h1>
+            <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Your selected products</p>
         </div>
     </div>
 
-    <!-- CART -->
-    <section class="max-w-6xl mx-auto px-4 py-8">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+    <!-- Main Cart Container Jisme JS Data Dalege -->
+    <main>
+        <div id="cart-items-container"></div>
+    </main>
 
-            <!-- LEFT: Items -->
-            <div id="cart-items" class="lg:col-span-2 space-y-4">
-                <!-- JS yahan items dikhayega -->
-            </div>
-
-            <!-- RIGHT: Summary -->
-            <div id="order-summary" class="lg:col-span-1">
-                <!-- JS yahan summary dikhayega -->
-            </div>
-
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-navy-dark text-white py-8 mt-8">
-        <div class="max-w-6xl mx-auto px-4 text-center">
-            <p class="text-slate-400 text-sm">© 2026 inverter.in — All Rights Reserved</p>
-        </div>
+    <!-- Footer -->
+    <footer style="background: #0b2545; color: #8892b0; text-align: center; padding: 20px; margin-top: 50px; font-size: 14px;">
+        © 2026 inverter.in — All Rights Reserved
     </footer>
 
+    <!-- Main JavaScript File -->
     <script src="js/main.js"></script>
 </body>
 </html>
