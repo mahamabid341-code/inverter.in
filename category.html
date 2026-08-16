@@ -4,16 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>All Products - inverter.in</title>
-    <link rel="stylesheet" href="style.css">
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: #f8fafc; color: #1e293b; }
+        body { background: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
         
         header { background: #0b2545; padding: 15px 30px; display: flex; justify-content: space-between; align-items: center; }
         .logo { color: #fca311; font-weight: 800; font-size: 22px; text-decoration: none; }
         .logo span { color: #ffffff; }
-        .cart-link { color: white; text-decoration: none; font-size: 16px; font-weight: 600; }
-        .cart-badge { background: #1e88e5; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; }
+        .cart-link { color: white; text-decoration: none; font-size: 15px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .cart-badge { background: #1e88e5; color: white; padding: 2px 8px; border-radius: 12px; font-size: 12px; font-weight: bold; }
 
         .banner { padding: 30px 40px; background: #fff; border-bottom: 1px solid #e2e8f0; }
         .banner h1 { font-size: 26px; color: #0b2545; font-weight: 800; }
@@ -26,6 +25,7 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
             gap: 25px;
+            width: 100%;
         }
 
         .product-card {
@@ -81,7 +81,7 @@
 
     <header>
         <a href="index.html" class="logo">inverter<span>.in</span></a>
-        <a href="cart.html" class="cart-link">🛒 Cart <span class="cart-badge cart-count">0</span></a>
+        <a href="cart.html" class="cart-link">🛒 Cart <span class="cart-badge" id="nav-cart-count">0</span></a>
     </header>
 
     <div class="banner">
@@ -89,19 +89,61 @@
         <p>PLC, Servo, Inverters & more</p>
     </div>
 
-    <!-- Yahan Javascript se photo wale products load honge -->
     <main>
         <div class="products-container" id="products-grid"></div>
     </main>
 
-    <script src="js/main.js"></script>
     <script>
+        // Fallback default products agar admin panel se koi custom data na mila ho
+        const defaultProducts = [
+            { id: 101, name: "Delta DVP14SS2 PLC", price: 18500, category: "PLC Controllers", image: "images/plc.jpg" },
+            { id: 102, name: "Delta ASD-B2 Servo", price: 42000, category: "Servo Motors", image: "images/servo.jpg" },
+            { id: 103, name: "VFD Drive 2.2 kW", price: 28900, category: "VFD Inverters", image: "images/vfd.jpg" },
+            { id: 104, name: "DOP-B07 HMI Screen", price: 35500, category: "HMI Screens", image: "images/hmi.jpg" }
+        ];
+
+        function getStoreProducts() {
+            const saved = localStorage.getItem('site_products');
+            if (saved) {
+                try {
+                    const parsed = JSON.parse(saved);
+                    if (parsed.length > 0) return parsed;
+                } catch(e) {}
+            }
+            return defaultProducts;
+        }
+
+        function updateCartBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const count = cart.reduce((total, item) => total + (Number(item.quantity) || 1), 0);
+            const badge = document.getElementById('nav-cart-count');
+            if (badge) badge.innerText = count;
+        }
+
+        function addToCartDirect(id) {
+            const products = getStoreProducts();
+            const prod = products.find(p => p.id == id);
+            if (!prod) return;
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const idx = cart.findIndex(c => c.id == prod.id || c.name == prod.name);
+
+            if (idx > -1) {
+                cart[idx].quantity = (Number(cart[idx].quantity) || 1) + 1;
+            } else {
+                cart.push({ ...prod, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            alert(`${prod.name} cart mein add ho gaya!`);
+        }
+
         function renderCategoryPage() {
             const grid = document.getElementById('products-grid');
             if (!grid) return;
 
-            // Admin panel ki saved images aur products fetch karna
-            const products = getActiveProducts();
+            const products = getStoreProducts();
             grid.innerHTML = '';
 
             products.forEach(p => {
@@ -109,21 +151,24 @@
                     <div class="product-card">
                         <div>
                             <div class="img-wrapper">
-                                <img src="${p.image || 'images/plc.jpg'}" alt="${p.name}" onerror="this.src='images/plc.jpg'">
+                                <img src="${p.image || 'images/plc.jpg'}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/200?text=No+Image'">
                             </div>
                             <div class="cat-tag">${p.category || 'Automation'}</div>
                             <div class="prod-title">${p.name}</div>
                         </div>
                         <div>
                             <div class="prod-price">Rs. ${Number(p.price).toLocaleString()}</div>
-                            <button class="btn-add-cart" onclick='addToCart(${JSON.stringify(p)})'>Add to Cart</button>
+                            <button class="btn-add-cart" onclick="addToCartDirect(${p.id})">Add to Cart</button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        document.addEventListener('DOMContentLoaded', renderCategoryPage);
+        document.addEventListener('DOMContentLoaded', () => {
+            renderCategoryPage();
+            updateCartBadge();
+        });
     </script>
 </body>
 </html>
