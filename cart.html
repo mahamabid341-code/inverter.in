@@ -3,38 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Shopping Cart - inverter.in</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Your Shopping Cart - inverter.in</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Open Sans', 'Segoe UI', sans-serif; }
+        body { background: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
+        header { background: #0b2545; padding: 16px 35px; display: flex; justify-content: space-between; align-items: center; color: white; }
+        .logo { color: #fff; font-size: 22px; font-weight: 800; text-decoration: none; }
+        .logo span { color: #fca311; }
+        .cart-icon-btn { color: white; text-decoration: none; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
+        .cart-count { background: #1e88e5; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px; }
+        .banner { background: #ffffff; padding: 30px 35px; border-bottom: 1px solid #e2e8f0; }
+        .banner h1 { font-size: 24px; color: #0b2545; font-weight: 800; }
+        .banner p { color: #64748b; font-size: 13.5px; margin-top: 4px; }
+        main { flex: 1; padding: 0 20px; }
+        footer { background: #0b2545; color: #94a3b8; text-align: center; padding: 20px; font-size: 13px; margin-top: 40px; }
+    </style>
 </head>
 <body>
 
-    <!-- Header / Navbar -->
-    <header style="background: #0b2545; padding: 15px 20px; display: flex; justify-content: space-between; align-items: center; color: white;">
-        <a href="index.html" style="color: #fca311; font-weight: bold; font-size: 22px; text-decoration: none;">inverter<span style="color: #fff;">.in</span></a>
-        <a href="cart.html" style="color: white; text-decoration: none; font-size: 20px;">
-            🛒 <span class="cart-count" style="background: #fca311; color: white; padding: 2px 7px; border-radius: 50%; font-size: 13px; font-weight: bold;">0</span>
+    <header>
+        <a href="index.html" class="logo">⚡ inverter<span>.in</span></a>
+        <a href="cart.html" class="cart-icon-btn">
+            <i class="fa-solid fa-cart-shopping"></i> My Cart <span class="cart-count">0</span>
         </a>
     </header>
 
-    <!-- Page Title Banner -->
-    <div style="background: #eef2f5; padding: 25px 20px; border-bottom: 1px solid #ddd;">
-        <div style="max-width: 1050px; margin: 0 auto;">
-            <h1 style="margin: 0; color: #0b2545; font-size: 26px;">Shopping Cart</h1>
-            <p style="margin: 5px 0 0 0; color: #666; font-size: 14px;">Your selected products</p>
+    <div class="banner">
+        <div style="max-width: 1100px; margin: 0 auto;">
+            <h1>Shopping Cart</h1>
+            <p>Review items in your cart and proceed to checkout.</p>
         </div>
     </div>
 
-    <!-- Main Cart Container Jisme JS Data Dalege -->
     <main>
         <div id="cart-items-container"></div>
     </main>
 
-    <!-- Footer -->
-    <footer style="background: #0b2545; color: #8892b0; text-align: center; padding: 20px; margin-top: 50px; font-size: 14px;">
-        © 2026 inverter.in — All Rights Reserved
+    <footer>
+        © 2026 inverter.in — Industrial Automation & Inverter Solutions
     </footer>
 
-    <!-- Main JavaScript File -->
     <script src="js/main.js"></script>
 </body>
 </html>
