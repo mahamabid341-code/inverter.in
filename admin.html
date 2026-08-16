@@ -280,7 +280,7 @@
                             <!-- Image URL Input -->
                             <div class="form-group">
                                 <label>🔗 Image Link / BBCode (Direct Link)</label>
-                                <input type="text" id="imgUrlInput" placeholder="Paste image link directly here" oninput="previewOnlineUrl(this.value)">
+                                <input type="text" id="imgUrlInput" placeholder="Paste image link or BBCode directly here" oninput="previewOnlineUrl(this.value)">
                             </div>
 
                             <div class="preview-container">
@@ -344,7 +344,7 @@
         </div>
     </div>
 
-    <!-- Floating Toast Box -->
+    <!-- Floating Toast Notification Box -->
     <div id="adminToast">
         <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 20px;"></i>
         <span id="adminToastMsg">Action completed successfully!</span>
@@ -378,6 +378,7 @@
             }
         }
 
+        // Automatic Link Extractor
         function extractCleanUrl(raw) {
             if (!raw) return '';
             let text = raw.trim();
@@ -480,15 +481,15 @@
             tbody.innerHTML = html;
         }
 
+        // Direct Smooth Clear (No Screen Freeze)
         function clearOrders() {
-            if(confirm("Kiya aap order history clear karna chahte hain?")) {
-                localStorage.removeItem('customer_orders');
-                renderOrdersTable();
-                refreshDashboard();
-                showAdminToast("Order history cleared!");
-            }
+            localStorage.removeItem('customer_orders');
+            renderOrdersTable();
+            refreshDashboard();
+            showAdminToast("Order history cleared!");
         }
 
+        // Direct Smooth Save (No Alert Box)
         function saveProduct(e) {
             e.preventDefault();
             let products = getProducts();
@@ -503,10 +504,10 @@
             if (id) {
                 const idx = products.findIndex(p => p.id == id);
                 if (idx > -1) products[idx] = { id: Number(id), name, price, category, image };
-                showAdminToast(`Product "${name}" updated successfully!`);
+                showAdminToast(`Product updated successfully!`);
             } else {
                 products.push({ id: Date.now(), name, price, category, image });
-                showAdminToast(`Product "${name}" saved successfully!`);
+                showAdminToast(`Product saved successfully!`);
             }
 
             localStorage.setItem('site_products', JSON.stringify(products));
@@ -535,13 +536,12 @@
             }
         }
 
+        // Direct Smooth Delete (No Screen Freeze)
         function deleteProduct(id) {
-            if (confirm("Kiya aap is product ko delete karna chahte hain?")) {
-                let products = getProducts().filter(p => p.id != id);
-                localStorage.setItem('site_products', JSON.stringify(products));
-                refreshDashboard();
-                showAdminToast("Product deleted!");
-            }
+            let products = getProducts().filter(p => p.id != id);
+            localStorage.setItem('site_products', JSON.stringify(products));
+            refreshDashboard();
+            showAdminToast("Product deleted successfully!");
         }
 
         function searchFilter() {
