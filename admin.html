@@ -351,13 +351,27 @@
     </div>
 
     <script>
-        const initialProducts = [
-            { id: 101, name: "Delta DVP14SS2 PLC", price: 18500, category: "PLC Controllers", image: "https://i.postimg.cc/j5kDvhcZ/IMG-20260722-WA0016.jpg" },
-            { id: 102, name: "Delta VFD Inverter", price: 34000, category: "VFD Inverters", image: "https://i.postimg.cc/mrLhsn63/IMG-20260722-WA0002.jpg" }
-        ];
+        
         function showAdminToast(msg) {
             const toast = document.getElementById('adminToast');
-            document.getElementById('adminToastMsg').innerText = msg;
+           const initialProducts = [
+            { 
+                id: 101, 
+                name: "Delta DVP14SS2 PLC", 
+                price: 18500, 
+                category: "PLC Controllers", 
+                image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop" 
+            },
+            { 
+                id: 102, 
+                name: "Delta ASD-B2 Servo", 
+                price: 42000, 
+                category: "Servo Motors", 
+                image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=500&auto=format&fit=crop" 
+            }
+        ];
+        
+        document.getElementById('adminToastMsg').innerText = msg;
             toast.classList.add('show');
             setTimeout(() => { toast.classList.remove('show'); }, 2200);
         }
