@@ -3,47 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Shopping Cart - inverter.in</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Open Sans', 'Segoe UI', sans-serif; }
-        body { background: #f8fafc; color: #1e293b; min-height: 100vh; display: flex; flex-direction: column; }
-        header { background: #0b2545; padding: 16px 35px; display: flex; justify-content: space-between; align-items: center; color: white; }
-        .logo { color: #fff; font-size: 22px; font-weight: 800; text-decoration: none; }
-        .logo span { color: #fca311; }
-        .cart-icon-btn { color: white; text-decoration: none; font-size: 16px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
-        .cart-count { background: #1e88e5; color: white; padding: 3px 8px; border-radius: 12px; font-size: 12px; }
-        .banner { background: #ffffff; padding: 30px 35px; border-bottom: 1px solid #e2e8f0; }
-        .banner h1 { font-size: 24px; color: #0b2545; font-weight: 800; }
-        .banner p { color: #64748b; font-size: 13.5px; margin-top: 4px; }
-        main { flex: 1; padding: 0 20px; }
-        footer { background: #0b2545; color: #94a3b8; text-align: center; padding: 20px; font-size: 13px; margin-top: 40px; }
-    </style>
+    <title>Shopping Cart & Checkout | inverter.in</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans">
 
-    <header>
-        <a href="index.html" class="logo">⚡ inverter<span>.in</span></a>
-        <a href="cart.html" class="cart-icon-btn">
-            <i class="fa-solid fa-cart-shopping"></i> My Cart <span class="cart-count">0</span>
-        </a>
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 py-4 px-6 sticky top-0 z-30">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <a href="index.html" class="flex items-center gap-2 font-extrabold text-slate-900 text-lg">
+                <i class="fa-solid fa-bolt text-blue-600"></i> inverter<span class="text-blue-600">.in</span>
+            </a>
+            <a href="index.html" class="text-xs font-bold text-slate-600 hover:text-blue-600 transition flex items-center gap-1.5">
+                <i class="fa-solid fa-arrow-left"></i> Continue Shopping
+            </a>
+        </div>
     </header>
 
-    <div class="banner">
-        <div style="max-width: 1100px; margin: 0 auto;">
-            <h1>Shopping Cart</h1>
-            <p>Review items in your cart and proceed to checkout.</p>
-        </div>
-    </div>
+    <!-- Main Container -->
+    <main class="max-w-6xl mx-auto px-4 py-8 flex-1 w-full">
+        <h1 class="text-2xl font-black text-slate-900 mb-6">Your Shopping Cart</h1>
 
-    <main>
-        <div id="cart-items-container"></div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <!-- Left: Cart Items Table -->
+            <div class="lg:col-span-7 space-y-4" id="cartContainer"></div>
+
+            <!-- Right: Customer Checkout Details -->
+            <div class="lg:col-span-5">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm sticky top-24 space-y-4">
+                    <h3 class="font-extrabold text-base text-slate-900 border-b border-slate-100 pb-3">Checkout Details</h3>
+                    <form onsubmit="placeOrder(event)" class="space-y-3">
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Full Name</label>
+                            <input type="text" id="custName" required placeholder="e.g. Ali Ahmed" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">WhatsApp / Phone Number</label>
+                            <input type="tel" id="custPhone" required placeholder="03001234567" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Delivery City</label>
+                            <input type="text" id="custCity" required placeholder="e.g. Karachi / Lahore / Faisalabad" class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Shipping Address</label>
+                            <textarea id="custAddress" required rows="2" placeholder="Full workshop or factory address..." class="w-full px-3.5 py-2.5 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600"></textarea>
+                        </div>
+
+                        <!-- Order Summary -->
+                        <div class="pt-3 border-t border-slate-100 space-y-2 text-xs">
+                            <div class="flex justify-between text-slate-500"><span>Payment Method:</span> <span class="font-bold text-slate-800">Cash on Delivery (COD)</span></div>
+                            <div class="flex justify-between text-slate-500"><span>Shipping:</span> <span class="font-bold text-emerald-600">Free Nationwide</span></div>
+                            <div class="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-slate-100">
+                                <span>Grand Total:</span>
+                                <span class="text-blue-600 text-base" id="cartTotalText">Rs. 0</span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs py-3 rounded-xl shadow-lg shadow-emerald-600/20 transition active:scale-95 flex items-center justify-center gap-2">
+                            <i class="fa-brands fa-whatsapp text-sm"></i> Confirm & Send via WhatsApp
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        © 2026 inverter.in — Industrial Automation & Inverter Solutions
-    </footer>
+    <script>
+        const fallbackImg = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500';
 
-    <script src="js/main.js"></script>
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const container = document.getElementById('cartContainer');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="bg-white p-12 rounded-2xl border border-slate-200 text-center space-y-3">
+                        <i class="fa-solid fa-cart-arrow-down text-4xl text-slate-300"></i>
+                        <h3 class="font-bold text-slate-700 text-base">Your cart is empty</h3>
+                        <p class="text-xs text-slate-400">Add products from our catalog to proceed.</p>
+                        <a href="index.html" class="inline-block bg-blue-600 text-white text-xs font-bold px-4 py-2 rounded-xl">Browse Catalog</a>
+                    </div>
+                `;
+                document.getElementById('cartTotalText').innerText = 'Rs. 0';
+                return;
+            }
+
+            let html = '';
+            let grandTotal = 0;
+
+            cart.forEach((it, idx) => {
+                const total = (Number(it.price) || 0) * (Number(it.quantity) || 1);
+                grandTotal += total;
+                const img = (it.image && it.image.startsWith('http')) ? it.image : fallbackImg;
+
+                html += `
+                    <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between gap-4">
+                        <div class="flex items-center gap-3">
+                            <img src="${img}" class="w-14 h-14 rounded-xl object-contain bg-slate-50 border border-slate-100" onerror="this.src='${fallbackImg}'">
+                            <div>
+                                <h4 class="font-bold text-xs text-slate-900">${it.name}</h4>
+                                <p class="text-[11px] text-slate-500 font-semibold">Rs. ${Number(it.price).toLocaleString()} each</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <div class="flex items-center border border-slate-200 rounded-xl overflow-hidden text-xs">
+                                <button onclick="changeQty(${idx}, -1)" class="px-2.5 py-1 bg-slate-50 hover:bg-slate-100 font-bold">-</button>
+                                <span class="px-3 py-1 font-bold">${it.quantity || 1}</span>
+                                <button onclick="changeQty(${idx}, 1)" class="px-2.5 py-1 bg-slate-50 hover:bg-slate-100 font-bold">+</button>
+                            </div>
+                            <span class="font-black text-xs text-slate-900 w-20 text-right">Rs. ${total.toLocaleString()}</span>
+                            <button onclick="removeItem(${idx})" class="text-rose-500 hover:text-rose-700 p-1"><i class="fa-solid fa-trash"></i></button>
+                        </div>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = html;
+            document.getElementById('cartTotalText').innerText = 'Rs. ' + grandTotal.toLocaleString();
+        }
+
+        function changeQty(idx, delta) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart[idx].quantity = (Number(cart[idx].quantity) || 1) + delta;
+            if (cart[idx].quantity <= 0) cart.splice(idx, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function removeItem(idx) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(idx, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+
+        function placeOrder(e) {
+            e.preventDefault();
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            const name = document.getElementById('custName').value.trim();
+            const phone = document.getElementById('custPhone').value.trim();
+            const city = document.getElementById('custCity').value.trim();
+            const address = document.getElementById('custAddress').value.trim();
+
+            let grandTotal = cart.reduce((sum, it) => sum + (Number(it.price) * Number(it.quantity || 1)), 0);
+
+            const newOrder = {
+                id: "ORD-" + Math.floor(100000 + Math.random() * 900000),
+                date: new Date().toLocaleDateString('en-GB'),
+                customer: { name, phone, city, address },
+                items: cart,
+                total: grandTotal
+            };
+
+            // Save in orders storage for Admin
+            let orders = JSON.parse(localStorage.getItem('customer_orders')) || [];
+            orders.unshift(newOrder);
+            localStorage.setItem('customer_orders', JSON.stringify(orders));
+
+            // Clear Cart
+            localStorage.removeItem('cart');
+
+            // Format WhatsApp Message
+            let msg = `*NEW ORDER - inverter.in*%0A%0A`;
+            msg += `*Order ID:* ${newOrder.id}%0A`;
+            msg += `*Customer:* ${name}%0A`;
+            msg += `*Phone:* ${phone}%0A`;
+            msg += `*City:* ${city}%0A`;
+            msg += `*Address:* ${address}%0A%0A`;
+            msg += `*Items Ordered:*%0A`;
+            cart.forEach((it, i) => {
+                msg += `${i+1}. ${it.name} (Qty: ${it.quantity}) - Rs. ${(it.price * it.quantity).toLocaleString()}%0A`;
+            });
+            msg += `%0A*Total Amount:* Rs. ${grandTotal.toLocaleString()} (COD)`;
+
+            // Redirect to WhatsApp
+            const targetPhone = "923000000000"; // Apna WhatsApp number lagayein
+            window.location.href = `https://wa.me/${targetPhone}?text=${msg}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', renderCart);
+    </script>
 </body>
 </html>

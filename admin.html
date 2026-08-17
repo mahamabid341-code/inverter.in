@@ -3,569 +3,359 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Able Pro Admin Panel | inverter.in</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <style>
-        :root {
-            --primary-blue: #1e88e5;
-            --gradient-header: linear-gradient(135deg, #1e88e5 0%, #00acc1 100%);
-            --sidebar-bg: #ffffff;
-            --body-bg: #f4f7fa;
-            --text-dark: #2c3e50;
-            --text-muted: #7f8c8d;
-            --border-color: #e2e8f0;
-            --card-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            --accent-orange: #ff5252;
-            --accent-green: #10b981;
+    <title>Admin Dashboard | inverter.in</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                }
+            }
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        body { background: var(--body-bg); color: var(--text-dark); display: flex; height: 100vh; overflow: hidden; }
-
-        /* Left Sidebar */
-        aside {
-            width: 240px;
-            background: var(--sidebar-bg);
-            border-right: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            flex-shrink: 0;
-            user-select: none;
-        }
-        .brand-logo {
-            height: 65px;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            font-size: 19px;
-            font-weight: 800;
-            color: #1e88e5;
-            border-bottom: 1px solid #f0f3f6;
-            gap: 8px;
-        }
-        .brand-logo span { color: #ff5252; }
-        .nav-category { font-size: 11px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); padding: 15px 20px 6px; letter-spacing: 0.5px; }
-        .nav-list { list-style: none; }
-        .nav-list li { margin: 2px 10px; }
-        .nav-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 14px;
-            color: #546e7a;
-            text-decoration: none;
-            font-size: 13.5px;
-            font-weight: 600;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .nav-btn:hover { background: #f0f7ff; color: #1e88e5; }
-        .nav-btn.active { background: #e3f2fd; color: #1e88e5; font-weight: 700; }
-
-        /* Right Content Area */
-        .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        header {
-            height: 65px;
-            background: var(--gradient-header);
-            color: #fff;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 25px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-        .breadcrumb-text { font-size: 14px; font-weight: 500; }
-        .btn-live-store {
-            background: rgba(255,255,255,0.2);
-            color: #fff;
-            padding: 7px 15px;
-            border-radius: 20px;
-            text-decoration: none;
-            font-size: 12.5px;
-            font-weight: 700;
-            transition: 0.2s;
-        }
-        .btn-live-store:hover { background: #fff; color: #1e88e5; }
-
-        .content-scroll { flex: 1; padding: 20px 25px; overflow-y: auto; }
-
-        /* Tab Visibility */
-        .tab-section { display: none; }
-        .tab-section.active-tab { display: block; animation: fadeIn 0.2s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* Top Metric Cards */
-        .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px; }
-        .stat-card-able {
-            background: #fff;
-            border-radius: 8px;
-            padding: 15px;
-            box-shadow: var(--card-shadow);
-            border-top: 3px solid #1e88e5;
-        }
-        .stat-card-able.card-green { border-top-color: var(--accent-green); }
-        .stat-card-able.card-orange { border-top-color: #ff9800; }
-        .stat-card-able.card-red { border-top-color: var(--accent-orange); }
-        .stat-title { font-size: 11px; font-weight: 700; color: var(--text-muted); text-transform: uppercase; }
-        .stat-value { font-size: 20px; font-weight: 800; color: var(--text-dark); margin: 4px 0; }
-
-        .middle-grid { display: grid; grid-template-columns: 380px 1fr; gap: 20px; }
-        .panel-box { background: #fff; border-radius: 8px; padding: 18px; box-shadow: var(--card-shadow); margin-bottom: 20px; }
-        .panel-box h3 {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-dark);
-            border-bottom: 1px solid #edf2f7;
-            padding-bottom: 10px;
-            margin-bottom: 14px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .form-group { margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 12px; font-weight: 600; color: #4a5568; margin-bottom: 4px; }
-        .form-group input, .form-group select {
-            width: 100%;
-            padding: 8px 10px;
-            border: 1px solid #cbd5e1;
-            border-radius: 6px;
-            font-size: 13px;
-            outline: none;
-            transition: 0.2s;
-        }
-        .form-group input:focus, .form-group select:focus { border-color: #1e88e5; }
-        
-        .preview-container {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-top: 8px;
-            background: #f8fafc;
-            padding: 8px 12px;
-            border: 1px solid #e2e8f0;
-            border-radius: 6px;
-        }
-        .preview-img { width: 48px; height: 48px; border-radius: 4px; object-fit: cover; background: #eee; border: 1px solid #cbd5e1; }
-
-        .btn-action-primary {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #1e88e5 0%, #00acc1 100%);
-            color: #fff;
-            border: none;
-            border-radius: 6px;
-            font-weight: 800;
-            font-size: 14px;
-            cursor: pointer;
-            margin-top: 14px;
-            box-shadow: 0 4px 10px rgba(0,172,193,0.3);
-        }
-
-        .able-table { width: 100%; border-collapse: collapse; text-align: left; }
-        .able-table th { background: #fafbfc; color: #94a3b8; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 10px 12px; border-bottom: 1px solid #edf2f7; }
-        .able-table td { padding: 10px 12px; border-bottom: 1px solid #f1f5f9; font-size: 13px; vertical-align: middle; }
-        .product-item-flex { display: flex; align-items: center; gap: 10px; }
-        .product-item-flex img { width: 40px; height: 40px; border-radius: 4px; object-fit: cover; border: 1px solid #e2e8f0; }
-        
-        .badge-status { padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; }
-        .status-pending { background: #fff3e0; color: #fb8c00; }
-
-        .btn-del { background: #fee2e2; color: #ef4444; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 11px; }
-        .btn-edit { background: #fef3c7; color: #d97706; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 11px; margin-right: 4px; }
-        .btn-whatsapp-direct { background: #e8f5e9; color: #2e7d32; text-decoration: none; padding: 4px 8px; border-radius: 4px; font-size: 11px; font-weight: 700; display: inline-block; }
-
-        /* Floating Modern Toast Notification */
-        #adminToast {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            background: #0f172a;
-            color: #ffffff;
-            padding: 14px 20px;
-            border-radius: 8px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.25);
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 14px;
-            font-weight: 600;
-            border-left: 5px solid #10b981;
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            z-index: 9999;
-            pointer-events: none;
-        }
-        #adminToast.show { transform: translateY(0); opacity: 1; }
-
-        @media(max-width: 1100px) {
-            .stats-row { grid-template-columns: repeat(2, 1fr); }
-            .middle-grid { grid-template-columns: 1fr; }
-        }
-    </style>
+    </script>
 </head>
-<body>
+<body class="bg-slate-100 text-slate-800 antialiased flex h-screen overflow-hidden font-sans">
 
-    <aside>
-        <div class="brand-logo">⚡ Able <span>.Pro</span></div>
-        <div class="nav-category">Main Menu</div>
-        <ul class="nav-list">
-            <li><div class="nav-btn active" onclick="switchAdminTab('dashboard-tab', this)">📊 Overview</div></li>
-            <li><div class="nav-btn" onclick="switchAdminTab('orders-tab', this)">🛍️ Customer Orders</div></li>
-        </ul>
-        <div class="nav-category">Store Direct Links</div>
-        <ul class="nav-list">
-            <li><a href="cart.html" target="_blank" class="nav-btn">🛒 View Live Cart</a></li>
-            <li><a href="index.html" target="_blank" class="nav-btn">🌐 Live Web Store</a></li>
-        </ul>
+    <!-- Sidebar -->
+    <aside class="w-64 bg-white border-r border-slate-200 flex flex-col justify-between flex-shrink-0 z-30">
+        <div>
+            <!-- Header Brand -->
+            <div class="h-16 flex items-center gap-3 px-6 border-b border-slate-100">
+                <div class="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white font-black text-lg shadow-md shadow-blue-500/20">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-slate-900 text-base leading-tight">inverter<span class="text-blue-600">.in</span></h1>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Management Console</p>
+                </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <nav class="p-4 space-y-1.5">
+                <button onclick="switchTab('inventory-tab', this)" class="nav-btn active w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition bg-blue-50 text-blue-600">
+                    <i class="fa-solid fa-boxes-stacked w-5 text-center text-sm"></i>
+                    <span>Product Catalog</span>
+                </button>
+                <button onclick="switchTab('orders-tab', this)" class="nav-btn w-full flex items-center gap-3 px-3.5 py-2.5 rounded-xl text-xs font-bold transition text-slate-600 hover:bg-slate-50">
+                    <i class="fa-solid fa-bag-shopping w-5 text-center text-sm"></i>
+                    <span>Customer Orders</span>
+                </button>
+                <div class="pt-4 border-t border-slate-100 mt-4">
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-3">Live Front Store</span>
+                    <a href="index.html" target="_blank" class="mt-2 w-full flex items-center justify-between px-3.5 py-2.5 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50 hover:text-blue-600 transition">
+                        <span class="flex items-center gap-3"><i class="fa-solid fa-arrow-up-right-from-square w-5 text-center"></i> View Website</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+
+        <div class="p-4 border-t border-slate-100">
+            <div class="flex items-center gap-3 p-2 bg-slate-50 rounded-xl">
+                <div class="w-8 h-8 rounded-lg bg-blue-600 text-white font-bold flex items-center justify-center text-xs">A</div>
+                <div>
+                    <p class="text-xs font-bold text-slate-900">Admin Live</p>
+                    <p class="text-[10px] font-semibold text-emerald-600 flex items-center gap-1"><span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> Connected</p>
+                </div>
+            </div>
+        </div>
     </aside>
 
-    <div class="main-wrapper">
-        <header>
-            <div class="breadcrumb-text">Dashboard / <strong id="currentTabLabel">Product Control</strong></div>
-            <a href="index.html" target="_blank" class="btn-live-store">↗ Open Live Store</a>
+    <!-- Main Content -->
+    <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
+        <header class="h-16 bg-white border-b border-slate-200 flex items-center justify-between px-8 z-20">
+            <h2 class="text-sm font-bold text-slate-900" id="tabTitle">Catalog & Inventory Management</h2>
+            <a href="index.html" target="_blank" class="text-xs font-bold bg-slate-900 hover:bg-blue-600 text-white px-4 py-2 rounded-xl transition flex items-center gap-2">
+                <i class="fa-solid fa-store"></i> Open Store
+            </a>
         </header>
 
-        <div class="content-scroll">
-            
-            <!-- TAB 1: Product Control & Inventory -->
-            <div id="dashboard-tab" class="tab-section active-tab">
-                <div class="stats-row">
-                    <div class="stat-card-able">
-                        <span class="stat-title">TOTAL PRODUCTS</span>
-                        <div class="stat-value" id="statProducts">0</div>
+        <div class="flex-1 overflow-y-auto p-8 space-y-6">
+            <!-- TAB 1: Inventory & Product Creator -->
+            <div id="inventory-tab" class="tab-pane block space-y-6">
+                <!-- Metrics -->
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div><p class="text-[11px] font-bold uppercase text-slate-400">Total Products</p><h3 class="text-2xl font-black text-slate-900 mt-1" id="statProducts">0</h3></div>
+                        <div class="w-12 h-12 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center text-xl"><i class="fa-solid fa-box"></i></div>
                     </div>
-                    <div class="stat-card-able card-green">
-                        <span class="stat-title">STORE INVENTORY</span>
-                        <div class="stat-value" id="statRevenue">Rs. 0</div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div><p class="text-[11px] font-bold uppercase text-slate-400">Inventory Value</p><h3 class="text-2xl font-black text-emerald-600 mt-1" id="statRevenue">Rs. 0</h3></div>
+                        <div class="w-12 h-12 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-xl"><i class="fa-solid fa-money-bill-trend-up"></i></div>
                     </div>
-                    <div class="stat-card-able card-orange">
-                        <span class="stat-title">TOTAL ORDERS</span>
-                        <div class="stat-value" id="statTotalOrders">0</div>
-                    </div>
-                    <div class="stat-card-able card-red">
-                        <span class="stat-title">SYSTEM STATUS</span>
-                        <div class="stat-value" style="font-size: 14px; color: #10b981; margin-top: 6px;">🟢 Cloud Synced</div>
+                    <div class="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm flex items-center justify-between">
+                        <div><p class="text-[11px] font-bold uppercase text-slate-400">Total Orders</p><h3 class="text-2xl font-black text-amber-500 mt-1" id="statTotalOrders">0</h3></div>
+                        <div class="w-12 h-12 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center text-xl"><i class="fa-solid fa-truck-ramp-box"></i></div>
                     </div>
                 </div>
 
-                <div class="middle-grid">
-                    <div class="panel-box">
-                        <h3 id="panelFormTitle">➕ Add / Edit Product</h3>
-                        <form id="productForm" onsubmit="saveProduct(event)">
-                            <input type="hidden" id="prodId">
-                            
-                            <div class="form-group">
-                                <label>Product Title</label>
-                                <input type="text" id="prodName" placeholder="e.g. DVP14SS2 PLC Controller" required>
+                <!-- Form & Table Grid -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <!-- Add Product Form -->
+                    <div class="lg:col-span-4 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm h-fit">
+                        <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+                            <h3 class="font-bold text-sm text-slate-900" id="formHeaderTitle"><i class="fa-solid fa-plus-circle text-blue-600 mr-1.5"></i> Add New Product</h3>
+                            <button onclick="resetForm()" class="text-xs text-slate-400 hover:text-slate-600">Reset</button>
+                        </div>
+                        <form onsubmit="handleProductSubmit(event)" class="space-y-3.5">
+                            <input type="hidden" id="editProductId">
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Product Title</label>
+                                <input type="text" id="prodTitle" placeholder="e.g. Delta DVP14SS2 Controller" required class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition">
                             </div>
-
-                            <div class="form-group">
-                                <label>Price (PKR)</label>
-                                <input type="number" id="prodPrice" placeholder="18500" required>
-                            </div>
-
-                            <div class="form-group">
-                                <label>Category</label>
-                                <select id="prodCategory">
-                                    <option value="PLC Controllers">PLC Controllers</option>
-                                    <option value="VFD Inverters">VFD Inverters</option>
-                                    <option value="Servo Motors">Servo Motors</option>
-                                    <option value="Sensors">Sensors</option>
-                                </select>
-                            </div>
-
-                            <!-- Image URL Input -->
-                            <div class="form-group">
-                                <label>🔗 Image Link / BBCode (Direct Link)</label>
-                                <input type="text" id="imgUrlInput" placeholder="Paste image link or BBCode directly here" oninput="previewOnlineUrl(this.value)">
-                            </div>
-
-                            <div class="preview-container">
-                                <img id="imagePreview" src="images/plc.jpg" class="preview-img" alt="Preview" onerror="this.src='https://via.placeholder.com/48?text=Error'">
-                                <div style="font-size: 12px; color: #64748b;">
-                                    <strong>Status:</strong> <span id="picStatus" style="color: #10b981;">Ready</span>
+                            <div class="grid grid-cols-2 gap-3">
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Price (PKR)</label>
+                                    <input type="number" id="prodPrice" placeholder="18500" required class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition">
+                                </div>
+                                <div>
+                                    <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Category</label>
+                                    <select id="prodCategory" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition">
+                                        <option value="PLC Controllers">PLC Controllers</option>
+                                        <option value="VFD Inverters">VFD Inverters</option>
+                                        <option value="Servo Motors">Servo Motors</option>
+                                        <option value="Sensors">Sensors</option>
+                                    </select>
                                 </div>
                             </div>
-
-                            <button type="submit" class="btn-action-primary" id="btnSubmit">💾 SAVE PRODUCT</button>
+                            <div>
+                                <label class="block text-[11px] font-bold uppercase text-slate-600 mb-1">Direct Image URL</label>
+                                <input type="text" id="prodImageUrl" placeholder="https://i.ibb.co/... (Direct image link)" oninput="updateLivePreview(this.value)" class="w-full px-3 py-2 text-xs bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition">
+                            </div>
+                            <div class="p-2.5 bg-slate-50 border border-slate-200 rounded-xl flex items-center gap-3">
+                                <img id="previewImg" src="https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500" class="w-10 h-10 rounded-lg object-contain bg-white border border-slate-200" alt="Preview">
+                                <div><p class="text-xs font-bold text-slate-800">Preview</p><p class="text-[10px] text-emerald-600 font-semibold" id="previewStatus">Default Ready</p></div>
+                            </div>
+                            <button type="submit" id="btnFormSubmit" class="w-full bg-slate-900 hover:bg-blue-600 text-white text-xs font-bold py-2.5 rounded-xl shadow transition flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-floppy-disk"></i> Save to Store
+                            </button>
                         </form>
                     </div>
 
-                    <div class="panel-box">
-                        <h3>
-                            <span>📋 Products Inventory</span>
-                            <input type="text" id="searchBox" onkeyup="searchFilter()" placeholder="🔍 Search..." style="font-size: 12px; padding: 4px 8px; border: 1px solid #cbd5e1; border-radius: 4px; outline: none; width: 140px;">
-                        </h3>
-                        <div style="overflow-x: auto;">
-                            <table class="able-table">
+                    <!-- Inventory Table -->
+                    <div class="lg:col-span-8 bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                        <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+                            <div><h3 class="font-bold text-sm text-slate-900">Current Inventory</h3><p class="text-[11px] text-slate-400">All live items synced with customer store</p></div>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse text-xs">
                                 <thead>
-                                    <tr>
-                                        <th>Photo & Item</th>
-                                        <th>Category</th>
-                                        <th>Price</th>
-                                        <th>Actions</th>
+                                    <tr class="border-b border-slate-100 text-[10px] font-bold uppercase text-slate-400">
+                                        <th class="pb-2.5 px-3">Item</th>
+                                        <th class="pb-2.5 px-3">Category</th>
+                                        <th class="pb-2.5 px-3">Price</th>
+                                        <th class="pb-2.5 px-3 text-right">Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody id="inventoryTable"></tbody>
+                                <tbody id="inventoryList" class="divide-y divide-slate-100 font-medium"></tbody>
                             </table>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- TAB 2: Live Customer Orders -->
-            <div id="orders-tab" class="tab-section">
-                <div class="panel-box">
-                    <h3>
-                        <span>🛍️ Live Customer Orders Received</span>
-                        <button onclick="clearOrders()" style="background:#fee2e2; color:#ef4444; border:none; padding:5px 10px; border-radius:4px; font-size:12px; cursor:pointer; font-weight:600;">Clear Order History</button>
-                    </h3>
-                    <div style="overflow-x: auto;">
-                        <table class="able-table">
+            <!-- TAB 2: Orders -->
+            <div id="orders-tab" class="tab-pane hidden space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <div class="flex items-center justify-between pb-3 mb-4 border-b border-slate-100">
+                        <div><h3 class="font-bold text-sm text-slate-900">Customer Orders (Cash on Delivery)</h3><p class="text-[11px] text-slate-400">Orders placed by customers</p></div>
+                        <button onclick="clearAllOrders()" class="text-xs font-bold text-rose-600 bg-rose-50 hover:bg-rose-100 px-3 py-1.5 rounded-xl transition"><i class="fa-solid fa-trash-can mr-1"></i> Clear</button>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs">
                             <thead>
-                                <tr>
-                                    <th>Order ID & Date</th>
-                                    <th>Customer & City</th>
-                                    <th>Phone / WhatsApp</th>
-                                    <th>Items Ordered</th>
-                                    <th>Total Bill</th>
-                                    <th>Status</th>
+                                <tr class="border-b border-slate-100 text-[10px] font-bold uppercase text-slate-400">
+                                    <th class="pb-2.5 px-3">Order ID</th>
+                                    <th class="pb-2.5 px-3">Customer</th>
+                                    <th class="pb-2.5 px-3">Phone</th>
+                                    <th class="pb-2.5 px-3">Items</th>
+                                    <th class="pb-2.5 px-3">Total Amount</th>
                                 </tr>
                             </thead>
-                            <tbody id="ordersTableBody"></tbody>
+                            <tbody id="adminOrdersTable" class="divide-y divide-slate-100 font-medium"></tbody>
                         </table>
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 
-    <!-- Floating Toast Notification Box -->
-    <div id="adminToast">
-        <i class="fa-solid fa-circle-check" style="color: #10b981; font-size: 20px;"></i>
-        <span id="adminToastMsg">Action completed successfully!</span>
+    <!-- Toast Notification -->
+    <div id="dashToast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 font-semibold text-xs transform translate-y-24 opacity-0 transition duration-300 pointer-events-none z-50 border-l-4 border-emerald-500">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="dashToastMsg">Done!</span>
     </div>
 
     <script>
-        
-        function showAdminToast(msg) {
-            const toast = document.getElementById('adminToast');
-           const initialProducts = [
-            { 
-                id: 101, 
-                name: "Delta DVP14SS2 PLC", 
-                price: 18500, 
-                category: "PLC Controllers", 
-                image: "https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500&auto=format&fit=crop" 
-            },
-            { 
-                id: 102, 
-                name: "Delta ASD-B2 Servo", 
-                price: 42000, 
-                category: "Servo Motors", 
-                image: "https://images.unsplash.com/photo-1581092335397-9583fe92d232?w=500&auto=format&fit=crop" 
-            }
+        const fallbackImg = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500';
+        const defaultProducts = [
+            { id: 101, name: "Delta DVP14SS2 PLC Controller", price: 18500, category: "PLC Controllers", image: "https://i.ibb.co/23qmjqKp/IMG-20260722-WA0013.jpg" },
+            { id: 102, name: "Delta ASD-B2 750W Servo Drive", price: 42000, category: "Servo Motors", image: "https://i.postimg.cc/mrLhsn63/IMG-20260722-WA0002.jpg" }
         ];
-        
-        document.getElementById('adminToastMsg').innerText = msg;
-            toast.classList.add('show');
-            setTimeout(() => { toast.classList.remove('show'); }, 2200);
+
+        function showDashToast(msg) {
+            const toast = document.getElementById('dashToast');
+            document.getElementById('dashToastMsg').innerText = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => toast.classList.add('translate-y-24', 'opacity-0'), 2000);
         }
 
-        function switchAdminTab(tabId, element) {
-            document.querySelectorAll('.tab-section').forEach(t => t.classList.remove('active-tab'));
-            document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        function switchTab(tabId, btn) {
+            document.querySelectorAll('.tab-pane').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('.nav-btn').forEach(el => { el.classList.remove('bg-blue-50', 'text-blue-600'); el.classList.add('text-slate-600'); });
+            document.getElementById(tabId).classList.remove('hidden');
+            btn.classList.add('bg-blue-50', 'text-blue-600');
+            btn.classList.remove('text-slate-600');
+            document.getElementById('tabTitle').innerText = tabId === 'orders-tab' ? 'Live Customer Orders' : 'Catalog & Inventory Management';
+            if (tabId === 'orders-tab') renderOrders();
+        }
 
-            document.getElementById(tabId).classList.add('active-tab');
-            if (element) element.classList.add('active');
+        function getStoredProducts() {
+            try {
+                const s = localStorage.getItem('site_products');
+                if (s) {
+                    const parsed = JSON.parse(s);
+                    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+                }
+            } catch(e){}
+            return defaultProducts;
+        }
 
-            if (tabId === 'orders-tab') {
-                document.getElementById('currentTabLabel').innerText = 'Customer Orders';
-                renderOrdersTable();
+        function updateLivePreview(url) {
+            const p = document.getElementById('previewImg');
+            const status = document.getElementById('previewStatus');
+            if (url && url.startsWith('http')) {
+                p.src = url.trim();
+                status.innerText = "Custom Link Active";
             } else {
-                document.getElementById('currentTabLabel').innerText = 'Product Control';
+                p.src = fallbackImg;
+                status.innerText = "Default Ready";
             }
         }
 
-        // Automatic Link Extractor
-        function extractCleanUrl(raw) {
-            if (!raw) return '';
-            let text = raw.trim();
-            let match = text.match(/https?:\/\/[^\s\[\]<>"']+\.(jpg|jpeg|png|webp|gif)/i);
-            if (match) return match[0];
-            match = text.match(/https?:\/\/[^\s\[\]<>"']+/);
-            return match ? match[0] : text;
-        }
-
-        function previewOnlineUrl(url) {
-            const clean = extractCleanUrl(url);
-            const preview = document.getElementById('imagePreview');
-            const status = document.getElementById('picStatus');
-            if (clean && clean.startsWith('http')) {
-                preview.src = clean;
-                status.innerText = "Link Loaded";
-                status.style.color = "#10b981";
-            } else {
-                preview.src = "images/plc.jpg";
-                status.innerText = "Ready";
-            }
-        }
-
-        function getProducts() {
-            const data = localStorage.getItem('site_products');
-            return data ? JSON.parse(data) : initialProducts;
-        }
-
-        function refreshDashboard() {
-            const products = getProducts();
-            const tbody = document.getElementById('inventoryTable');
+        function refreshInventoryView() {
+            const prods = getStoredProducts();
+            const tbody = document.getElementById('inventoryList');
             let html = '';
-            let totalVal = 0;
+            let val = 0;
 
-            products.forEach(p => {
-                totalVal += Number(p.price) || 0;
+            prods.forEach(p => {
+                val += Number(p.price) || 0;
+                const img = (p.image && p.image.startsWith('http')) ? p.image : fallbackImg;
                 html += `
-                    <tr>
-                        <td>
-                            <div class="product-item-flex">
-                                <img src="${p.image || 'images/plc.jpg'}" onerror="this.src='https://via.placeholder.com/40?text=No+Img'">
-                                <div>
-                                    <strong>${p.name}</strong>
-                                    <div style="font-size: 10.5px; color: #90a4ae;">SKU-${p.id}</div>
-                                </div>
+                    <tr class="hover:bg-slate-50 transition">
+                        <td class="py-3 px-3">
+                            <div class="flex items-center gap-3">
+                                <img src="${img}" class="w-9 h-9 rounded-lg object-contain bg-white border border-slate-200" onerror="this.src='${fallbackImg}'">
+                                <div><p class="font-bold text-slate-900">${p.name}</p><p class="text-[10px] text-slate-400 font-mono">SKU-${p.id}</p></div>
                             </div>
                         </td>
-                        <td>${p.category}</td>
-                        <td><strong>Rs. ${Number(p.price).toLocaleString()}</strong></td>
-                        <td>
-                            <button class="btn-edit" onclick="editProduct(${p.id})">✏️</button>
-                            <button class="btn-del" onclick="deleteProduct(${p.id})">🗑️</button>
+                        <td class="py-3 px-3 text-slate-600 font-medium">${p.category}</td>
+                        <td class="py-3 px-3 font-bold text-slate-900">Rs. ${Number(p.price).toLocaleString()}</td>
+                        <td class="py-3 px-3 text-right space-x-1">
+                            <button onclick="editItem(${p.id})" class="p-1.5 text-amber-600 hover:bg-amber-50 rounded-lg"><i class="fa-solid fa-pen"></i></button>
+                            <button onclick="deleteItem(${p.id})" class="p-1.5 text-rose-600 hover:bg-rose-50 rounded-lg"><i class="fa-solid fa-trash"></i></button>
                         </td>
                     </tr>
                 `;
             });
 
             tbody.innerHTML = html;
-            document.getElementById('statProducts').innerText = products.length;
-            document.getElementById('statRevenue').innerText = 'Rs. ' + totalVal.toLocaleString();
-            
+            document.getElementById('statProducts').innerText = prods.length;
+            document.getElementById('statRevenue').innerText = 'Rs. ' + val.toLocaleString();
             const orders = JSON.parse(localStorage.getItem('customer_orders')) || [];
             document.getElementById('statTotalOrders').innerText = orders.length;
         }
 
-        function renderOrdersTable() {
-            const orders = JSON.parse(localStorage.getItem('customer_orders')) || [];
-            const tbody = document.getElementById('ordersTableBody');
+        function handleProductSubmit(e) {
+            e.preventDefault();
+            let prods = getStoredProducts();
+            const id = document.getElementById('editProductId').value;
+            const name = document.getElementById('prodTitle').value.trim();
+            const price = Number(document.getElementById('prodPrice').value);
+            const category = document.getElementById('prodCategory').value;
+            const rawUrl = document.getElementById('prodImageUrl').value.trim();
+            const image = rawUrl.startsWith('http') ? rawUrl : fallbackImg;
 
-            if (orders.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:30px;">Abhi tak koi naya customer order receive nahi hua.</td></tr>`;
-                return;
+            if (id) {
+                const idx = prods.findIndex(p => p.id == id);
+                if (idx > -1) prods[idx] = { id: Number(id), name, price, category, image };
+                showDashToast("Product updated!");
+            } else {
+                prods.push({ id: Date.now(), name, price, category, image });
+                showDashToast("Product added to catalog!");
             }
 
-            let html = '';
-            orders.forEach(ord => {
-                let itemsList = ord.items.map(it => `${it.name} (x${it.quantity || 1})`).join('<br>');
-                let waLink = `https://wa.me/${ord.customer.phone.replace(/[^0-9]/g, '')}`;
+            localStorage.setItem('site_products', JSON.stringify(prods));
+            resetForm();
+            refreshInventoryView();
+        }
 
+        function editItem(id) {
+            const p = getStoredProducts().find(x => x.id == id);
+            if (p) {
+                document.getElementById('editProductId').value = p.id;
+                document.getElementById('prodTitle').value = p.name;
+                document.getElementById('prodPrice').value = p.price;
+                document.getElementById('prodCategory').value = p.category;
+                document.getElementById('prodImageUrl').value = p.image || '';
+                updateLivePreview(p.image);
+                document.getElementById('formHeaderTitle').innerHTML = '<i class="fa-solid fa-pen text-amber-500 mr-1.5"></i> Edit Product';
+                document.getElementById('btnFormSubmit').innerHTML = '<i class="fa-solid fa-check"></i> Update Product';
+            }
+        }
+
+        function deleteItem(id) {
+            let prods = getStoredProducts().filter(p => p.id != id);
+            localStorage.setItem('site_products', JSON.stringify(prods));
+            refreshInventoryView();
+            showDashToast("Product removed!");
+        }
+
+        function resetForm() {
+            document.getElementById('editProductId').value = '';
+            document.getElementById('prodTitle').value = '';
+            document.getElementById('prodPrice').value = '';
+            document.getElementById('prodImageUrl').value = '';
+            updateLivePreview('');
+            document.getElementById('formHeaderTitle').innerHTML = '<i class="fa-solid fa-plus-circle text-blue-600 mr-1.5"></i> Add New Product';
+            document.getElementById('btnFormSubmit').innerHTML = '<i class="fa-solid fa-floppy-disk"></i> Save to Store';
+        }
+
+        function renderOrders() {
+            const orders = JSON.parse(localStorage.getItem('customer_orders')) || [];
+            const tbody = document.getElementById('adminOrdersTable');
+            if (orders.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="5" class="py-8 text-center text-slate-400">No customer orders placed yet.</td></tr>`;
+                return;
+            }
+            let html = '';
+            orders.forEach(o => {
+                const itemsStr = o.items.map(it => `${it.name} (x${it.quantity})`).join(', ');
                 html += `
-                    <tr>
-                        <td>
-                            <strong>${ord.id}</strong>
-                            <div style="font-size:11px; color:#94a3b8;">${ord.date}</div>
-                        </td>
-                        <td>
-                            <strong>${ord.customer.name}</strong>
-                            <div style="font-size:11px; color:#64748b;">📍 ${ord.customer.city} (${ord.customer.address})</div>
-                        </td>
-                        <td>
-                            <a href="${waLink}" target="_blank" class="btn-whatsapp-direct">💬 ${ord.customer.phone}</a>
-                        </td>
-                        <td style="font-size:12.5px; line-height:1.4;">${itemsList}</td>
-                        <td><strong style="color:#1e88e5;">Rs. ${Number(ord.total).toLocaleString()}</strong></td>
-                        <td><span class="badge-status status-pending">COD Order</span></td>
+                    <tr class="hover:bg-slate-50">
+                        <td class="py-3 px-3 font-bold text-blue-600">${o.id}</td>
+                        <td class="py-3 px-3"><p class="font-bold">${o.customer.name}</p><p class="text-[10px] text-slate-400">${o.customer.city}</p></td>
+                        <td class="py-3 px-3"><a href="https://wa.me/${o.customer.phone.replace(/[^0-9]/g,'')}" target="_blank" class="text-emerald-600 font-bold"><i class="fa-brands fa-whatsapp"></i> ${o.customer.phone}</a></td>
+                        <td class="py-3 px-3 text-slate-600">${itemsStr}</td>
+                        <td class="py-3 px-3 font-bold text-slate-900">Rs. ${Number(o.total).toLocaleString()}</td>
                     </tr>
                 `;
             });
-
             tbody.innerHTML = html;
         }
 
-        // Direct Smooth Clear (No Screen Freeze)
-        function clearOrders() {
+        function clearAllOrders() {
             localStorage.removeItem('customer_orders');
-            renderOrdersTable();
-            refreshDashboard();
-            showAdminToast("Order history cleared!");
+            renderOrders();
+            refreshInventoryView();
+            showDashToast("Orders cleared");
         }
 
-        // Direct Smooth Save (No Alert Box)
-        function saveProduct(e) {
-            e.preventDefault();
-            let products = getProducts();
-            const id = document.getElementById('prodId').value;
-            const name = document.getElementById('prodName').value.trim();
-            const price = Number(document.getElementById('prodPrice').value);
-            const category = document.getElementById('prodCategory').value;
-            const rawUrl = document.getElementById('imgUrlInput').value;
-            
-            const image = extractCleanUrl(rawUrl) || 'images/plc.jpg';
-
-            if (id) {
-                const idx = products.findIndex(p => p.id == id);
-                if (idx > -1) products[idx] = { id: Number(id), name, price, category, image };
-                showAdminToast(`Product updated successfully!`);
-            } else {
-                products.push({ id: Date.now(), name, price, category, image });
-                showAdminToast(`Product saved successfully!`);
-            }
-
-            localStorage.setItem('site_products', JSON.stringify(products));
-            document.getElementById('productForm').reset();
-            document.getElementById('prodId').value = '';
-            document.getElementById('imagePreview').src = 'images/plc.jpg';
-            document.getElementById('picStatus').innerText = "Ready";
-            document.getElementById('panelFormTitle').innerText = '➕ Add / Edit Product';
-            document.getElementById('btnSubmit').innerText = '💾 SAVE PRODUCT';
-            refreshDashboard();
-        }
-
-        function editProduct(id) {
-            const products = getProducts();
-            const p = products.find(item => item.id == id);
-            if (p) {
-                document.getElementById('prodId').value = p.id;
-                document.getElementById('prodName').value = p.name;
-                document.getElementById('prodPrice').value = p.price;
-                document.getElementById('prodCategory').value = p.category;
-                document.getElementById('imgUrlInput').value = p.image || '';
-                document.getElementById('imagePreview').src = p.image || 'images/plc.jpg';
-                document.getElementById('picStatus').innerText = "Loaded";
-                document.getElementById('panelFormTitle').innerText = '✏️ Edit Product';
-                document.getElementById('btnSubmit').innerText = 'UPDATE PRODUCT';
-            }
-        }
-
-        // Direct Smooth Delete (No Screen Freeze)
-        function deleteProduct(id) {
-            let products = getProducts().filter(p => p.id != id);
-            localStorage.setItem('site_products', JSON.stringify(products));
-            refreshDashboard();
-            showAdminToast("Product deleted successfully!");
-        }
-
-        function searchFilter() {
-            const q = document.getElementById('searchBox').value.toLowerCase();
-            const rows = document.querySelectorAll('#inventoryTable tr');
-            rows.forEach(r => {
-                r.style.display = r.innerText.toLowerCase().includes(q) ? '' : 'none';
-            });
-        }
-
-        document.addEventListener('DOMContentLoaded', refreshDashboard);
+        document.addEventListener('DOMContentLoaded', refreshInventoryView);
     </script>
 </body>
 </html>

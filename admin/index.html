@@ -1,13 +1,267 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Content Manager - inverter.inv</title>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inverter.in | Industrial Automation & Drives Pakistan</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Plus Jakarta Sans', 'sans-serif'] },
+                    colors: {
+                        navy: { 900: '#07162c', 800: '#0b2545', 700: '#133a6b' }
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body>
-  <!-- Decap CMS Script -->
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col font-sans">
+
+    <!-- Top Notice Bar -->
+    <div class="bg-navy-900 text-slate-300 text-xs py-2 px-4 text-center font-medium border-b border-navy-800">
+        ⚡ Authorized Supplier of Delta, Mitsubishi & Siemens Industrial Automation in Pakistan
+    </div>
+
+    <!-- Navigation Header -->
+    <header class="bg-white/90 backdrop-blur-md sticky top-0 z-40 border-b border-slate-200 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3.5 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="index.html" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 bg-gradient-to-tr from-blue-600 to-amber-500 rounded-xl flex items-center justify-center text-white font-black text-xl shadow-md shadow-blue-500/20 group-hover:scale-105 transition duration-200">
+                    <i class="fa-solid fa-bolt"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-extrabold text-navy-900 tracking-tight">inverter<span class="text-amber-500">.in</span></span>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Industrial Solutions</p>
+                </div>
+            </a>
+
+            <!-- Search Bar (Desktop) -->
+            <div class="hidden md:flex items-center flex-1 max-w-md mx-8 relative">
+                <i class="fa-solid fa-magnifying-glass absolute left-3.5 text-slate-400 text-sm"></i>
+                <input type="text" id="liveSearch" onkeyup="filterLiveProducts()" placeholder="Search PLCs, VFD Inverters, Servo Drives..." 
+                       class="w-full pl-10 pr-4 py-2 text-xs rounded-xl bg-slate-100 border border-slate-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition">
+            </div>
+
+            <!-- Header Actions -->
+            <div class="flex items-center gap-3">
+                <a href="admin.html" class="hidden sm:inline-flex items-center gap-2 text-xs font-bold text-slate-600 hover:text-blue-600 bg-slate-100 hover:bg-blue-50 px-3.5 py-2 rounded-xl transition">
+                    <i class="fa-solid fa-lock"></i> Admin Portal
+                </a>
+                <a href="cart.html" class="inline-flex items-center gap-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold px-4 py-2.5 rounded-xl shadow-md shadow-blue-600/20 transition active:scale-95">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Cart</span>
+                    <span id="headerCartCount" class="bg-amber-400 text-slate-900 text-[10px] font-extrabold px-2 py-0.5 rounded-full">0</span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="bg-gradient-to-br from-navy-900 via-navy-800 to-slate-900 text-white py-16 px-4 relative overflow-hidden">
+        <div class="absolute inset-0 bg-[radial-gradient(#1e88e5_1px,transparent_1px)] [background-size:16px_16px] opacity-10"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10 space-y-4">
+            <span class="inline-block bg-blue-500/10 text-blue-400 border border-blue-400/20 text-xs font-bold px-3.5 py-1.5 rounded-full uppercase tracking-wider">
+                Industrial Grade Automation 2026
+            </span>
+            <h1 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                High-Performance <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-200">VFD Inverters & PLCs</span>
+            </h1>
+            <p class="text-slate-300 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
+                Direct procurement for textile, manufacturing, and industrial automation equipment with official warranty and instant Pakistan delivery.
+            </p>
+            <div class="pt-2 flex flex-wrap justify-center gap-3">
+                <a href="#productsCatalog" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs px-6 py-3 rounded-xl shadow-lg shadow-amber-500/20 transition active:scale-95 flex items-center gap-2">
+                    <i class="fa-solid fa-layer-group"></i> Explore Catalog
+                </a>
+                <a href="admin.html" class="bg-white/10 hover:bg-white/20 text-white font-bold text-xs px-6 py-3 rounded-xl backdrop-blur-sm border border-white/10 transition flex items-center gap-2">
+                    <i class="fa-solid fa-sliders"></i> Open Management
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Categories Quick Select -->
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-6 relative z-20">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-3.5">
+            <div onclick="filterByCategory('All')" class="category-pill active bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md cursor-pointer transition flex items-center gap-3">
+                <div class="w-10 h-10 bg-blue-50 text-blue-600 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-border-all"></i></div>
+                <div><h4 class="font-bold text-xs text-slate-900">All Items</h4><p class="text-[11px] text-slate-400">Complete Store</p></div>
+            </div>
+            <div onclick="filterByCategory('PLC Controllers')" class="category-pill bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md cursor-pointer transition flex items-center gap-3">
+                <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-microchip"></i></div>
+                <div><h4 class="font-bold text-xs text-slate-900">PLC Units</h4><p class="text-[11px] text-slate-400">Delta / Siemens</p></div>
+            </div>
+            <div onclick="filterByCategory('VFD Inverters')" class="category-pill bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md cursor-pointer transition flex items-center gap-3">
+                <div class="w-10 h-10 bg-amber-50 text-amber-600 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-arrows-rotate"></i></div>
+                <div><h4 class="font-bold text-xs text-slate-900">VFD Inverters</h4><p class="text-[11px] text-slate-400">Variable Speed</p></div>
+            </div>
+            <div onclick="filterByCategory('Servo Motors')" class="category-pill bg-white p-4 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md cursor-pointer transition flex items-center gap-3">
+                <div class="w-10 h-10 bg-purple-50 text-purple-600 rounded-xl flex items-center justify-center text-lg"><i class="fa-solid fa-gears"></i></div>
+                <div><h4 class="font-bold text-xs text-slate-900">Servo Systems</h4><p class="text-[11px] text-slate-400">Precision Drives</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Products Catalog -->
+    <main id="productsCatalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex-1 w-full">
+        <div class="flex items-center justify-between mb-8">
+            <div>
+                <h2 class="text-xl font-extrabold text-slate-900">Featured Machinery & Inverters</h2>
+                <p class="text-xs text-slate-500">Live products managed via Admin Panel</p>
+            </div>
+            <span id="activeCountBadge" class="text-xs font-bold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-xl">Showing All</span>
+        </div>
+
+        <!-- Dynamic Product Grid -->
+        <div id="frontProductsGrid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+    </main>
+
+    <!-- Floating Modern Toast -->
+    <div id="frontToast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-5 py-3.5 rounded-2xl shadow-2xl flex items-center gap-3 font-semibold text-sm transform translate-y-24 opacity-0 transition-all duration-300 pointer-events-none z-50 border-l-4 border-emerald-500">
+        <i class="fa-solid fa-circle-check text-emerald-400 text-base"></i>
+        <span id="frontToastMsg">Item added to cart!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-navy-900 text-slate-400 border-t border-navy-800 text-xs py-8 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 text-center space-y-2">
+            <p class="font-bold text-slate-200 text-sm">inverter.in — Industrial Automation & Power Drives</p>
+            <p>© 2026 All Rights Reserved. Designed for High Performance.</p>
+        </div>
+    </footer>
+
+    <script>
+        const fallbackImg = 'https://images.unsplash.com/photo-1581092160607-ee22621dd758?w=500';
+        const defaultProducts = [
+            { id: 101, name: "Delta DVP14SS2 PLC Controller", price: 18500, category: "PLC Controllers", image: "https://i.ibb.co/23qmjqKp/IMG-20260722-WA0013.jpg" },
+            { id: 102, name: "Delta ASD-B2 750W Servo Drive", price: 42000, category: "Servo Motors", image: "https://i.postimg.cc/mrLhsn63/IMG-20260722-WA0002.jpg" },
+            { id: 103, name: "Delta MS300 2.2kW VFD Inverter", price: 29500, category: "VFD Inverters", image: fallbackImg },
+            { id: 104, name: "Delta DOP-107BV 7-inch HMI", price: 24000, category: "PLC Controllers", image: fallbackImg }
+        ];
+
+        let currentCategory = 'All';
+
+        function getProducts() {
+            try {
+                const saved = localStorage.getItem('site_products');
+                if (saved) {
+                    const parsed = JSON.parse(saved);
+                    if (Array.isArray(parsed) && parsed.length > 0) return parsed;
+                }
+            } catch(e){}
+            return defaultProducts;
+        }
+
+        function updateCartBadge() {
+            try {
+                const cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const totalItems = cart.reduce((tot, it) => tot + (Number(it.quantity) || 1), 0);
+                document.getElementById('headerCartCount').innerText = totalItems;
+            } catch(e){}
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('frontToast');
+            document.getElementById('frontToastMsg').innerText = msg;
+            toast.classList.remove('translate-y-24', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-24', 'opacity-0');
+            }, 2000);
+        }
+
+        function addToCart(id) {
+            const prods = getProducts();
+            const p = prods.find(item => item.id == id);
+            if (!p) return;
+
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const idx = cart.findIndex(it => it.id == p.id);
+
+            if (idx > -1) {
+                cart[idx].quantity = (Number(cart[idx].quantity) || 1) + 1;
+            } else {
+                cart.push({ ...p, quantity: 1 });
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            showToast(`${p.name} added to cart!`);
+        }
+
+        function renderProducts(list) {
+            const grid = document.getElementById('frontProductsGrid');
+            grid.innerHTML = '';
+
+            if (list.length === 0) {
+                grid.innerHTML = `
+                    <div class="col-span-full py-16 text-center bg-white rounded-3xl border border-slate-200 p-8">
+                        <i class="fa-solid fa-box-open text-4xl text-slate-300 mb-3"></i>
+                        <h3 class="text-base font-bold text-slate-700">No products found</h3>
+                        <p class="text-xs text-slate-400 mt-1">Try selecting another category or check the search query.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            list.forEach(p => {
+                const img = (p.image && p.image.startsWith('http')) ? p.image : fallbackImg;
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl border border-slate-200/90 p-4 shadow-sm hover:shadow-xl hover:-translate-y-1 transition duration-200 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-full h-48 bg-slate-50 rounded-xl overflow-hidden mb-3 border border-slate-100 flex items-center justify-center p-2 relative">
+                                <img src="${img}" class="w-full h-full object-contain group-hover:scale-105 transition duration-300" onerror="this.src='${fallbackImg}'">
+                                <span class="absolute top-2.5 left-2.5 bg-white/90 backdrop-blur-sm text-slate-700 text-[10px] font-extrabold px-2.5 py-1 rounded-lg border border-slate-200 shadow-sm uppercase tracking-wider">
+                                    ${p.category || 'Industrial'}
+                                </span>
+                            </div>
+                            <h3 class="font-bold text-sm text-slate-900 line-clamp-2 leading-snug mb-1">${p.name}</h3>
+                            <p class="text-[11px] text-slate-400 font-mono">SKU-${p.id}</p>
+                        </div>
+                        <div class="pt-4 mt-3 border-t border-slate-100 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] font-bold text-slate-400 uppercase">Price</span>
+                                <p class="text-base font-black text-slate-900 leading-tight">Rs. ${Number(p.price).toLocaleString()}</p>
+                            </div>
+                            <button onclick="addToCart(${p.id})" class="bg-navy-800 hover:bg-blue-600 text-white text-xs font-bold px-3.5 py-2 rounded-xl transition shadow-sm active:scale-95 flex items-center gap-1.5">
+                                <i class="fa-solid fa-cart-plus"></i> Add
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function filterByCategory(cat) {
+            currentCategory = cat;
+            const prods = getProducts();
+            const filtered = (cat === 'All') ? prods : prods.filter(p => p.category === cat);
+            document.getElementById('activeCountBadge').innerText = cat === 'All' ? 'Showing All' : cat;
+            renderProducts(filtered);
+        }
+
+        function filterLiveProducts() {
+            const query = document.getElementById('liveSearch').value.toLowerCase();
+            const prods = getProducts();
+            const filtered = prods.filter(p => 
+                p.name.toLowerCase().includes(query) || 
+                (p.category && p.category.toLowerCase().includes(query))
+            );
+            renderProducts(filtered);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProducts(getProducts());
+            updateCartBadge();
+        });
+    </script>
 </body>
 </html>
